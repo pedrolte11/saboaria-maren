@@ -1,0 +1,7 @@
+# saídas do build
+sabonaria.html
+sabonaria-site/
+
+# avulsos
+*.zip
+__pycache__/

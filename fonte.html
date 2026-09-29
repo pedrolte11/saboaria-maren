@@ -1,0 +1,2577 @@
+<title>Saboaria Maren</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#F2EEE9; --surface:#FBF8F4; --surface-2:#E9E3D9; --line:#DCD4C7;
+  --ink:#26221F; --ink-2:#5F574F; --ink-3:#8C8378;
+  --accent:#8A6A33; --accent-soft:#F0E9DC; --accent-line:#CDBE9E; --on-accent:#F7F3EC;
+  --btn:#26221F; --btn-txt:#F7F3EC;
+  --ouro:#8A6A33; --ouro-soft:#F1E8D9;
+  --good:#4A6F52; --good-soft:#E3EBE1; --warn:#8E6410; --bad:#9C4F35; --bad-soft:#F6E4DC;
+  --shadow:0 1px 2px rgba(38,34,31,.05), 0 8px 24px -14px rgba(38,34,31,.3);
+  --r:14px; --w:780px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --ground:#191614; --surface:#221E1B; --surface-2:#2C2723; --line:#3A342E;
+    --ink:#F0EAE1; --ink-2:#B3A99C; --ink-3:#867C70;
+    --accent:#D6B378; --accent-soft:#2A2319; --accent-line:#4A3E2C; --on-accent:#191614;
+    --btn:#E9E2D6; --btn-txt:#201C19;
+    --ouro:#D6B378; --ouro-soft:#2A2319;
+    --good:#84B48D; --good-soft:#1F2A20; --warn:#D9AE5E; --bad:#DE9077; --bad-soft:#2E2019;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 24px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+    --ground:#191614; --surface:#221E1B; --surface-2:#2C2723; --line:#3A342E;
+    --ink:#F0EAE1; --ink-2:#B3A99C; --ink-3:#867C70;
+    --accent:#D6B378; --accent-soft:#2A2319; --accent-line:#4A3E2C; --on-accent:#191614;
+    --btn:#E9E2D6; --btn-txt:#201C19;
+    --ouro:#D6B378; --ouro-soft:#2A2319;
+    --good:#84B48D; --good-soft:#1F2A20; --warn:#D9AE5E; --bad:#DE9077; --bad-soft:#2E2019;
+    --shadow:0 1px 2px rgba(0,0,0,.35), 0 8px 24px -14px rgba(0,0,0,.7);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--ground); color:var(--ink);
+  font-family:Jost, "Segoe UI", system-ui, sans-serif;
+  font-size:16px; line-height:1.5; -webkit-text-size-adjust:100%;
+}
+.wrap{max-width:var(--w); margin:0 auto; padding:0 16px 150px}
+@media (min-width:900px){ :root{ --w:960px } }
+
+/* ---------- marca ---------- */
+.marca{background:var(--ground); padding:20px 16px 14px; text-align:center}
+.marca-in{max-width:var(--w); margin:0 auto}
+.logo-btn{appearance:none; border:0; background:none; padding:0; cursor:pointer; display:block; margin:0 auto; line-height:0}
+.logo-btn:focus-visible{outline:2px solid var(--accent); outline-offset:6px; border-radius:8px}
+.logo{width:min(210px, 56vw); height:auto; color:var(--ink); display:block; overflow:visible}
+.tagline{margin:9px 0 0; font-size:9.5px; letter-spacing:.26em; text-transform:uppercase;
+  color:var(--ink-3); font-weight:400}
+
+/* peças animáveis */
+#agua, #raios, #barco, #nome{transform-box:fill-box}
+#agua{transform-origin:center}
+#raios{transform-origin:center bottom}
+#barco{transform-origin:center bottom}
+#nome{transform-origin:center top}
+
+@keyframes mar-balanco{ 0%,100%{transform:translateX(-7px)} 50%{transform:translateX(7px)} }
+@keyframes barco-boia{
+  0%,100%{transform:translate(0,0) rotate(-1.4deg)}
+  50%{transform:translate(6px,-3px) rotate(1.4deg)}
+}
+@keyframes raios-respira{ 0%,100%{opacity:.62; transform:scale(.985)} 50%{opacity:1; transform:scale(1.02)} }
+
+/* entrada */
+@keyframes ent-arte{ from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:translateY(0)} }
+@keyframes ent-raios{ from{opacity:0; transform:scale(.72)} to{opacity:.62; transform:scale(.985)} }
+@keyframes ent-barco{ from{opacity:0; transform:translateX(-150px) rotate(-5deg)} to{opacity:1; transform:translateX(0) rotate(-1.4deg)} }
+@keyframes ent-areia{ from{transform:scaleY(0)} to{transform:scaleY(1)} }
+@keyframes ent-nome{ from{opacity:.15; transform:translateY(9px)} to{opacity:1; transform:translateY(0)} }
+
+.logo #marca-arte{animation:ent-arte 1s cubic-bezier(.22,.9,.3,1) both}
+.logo #raios{animation:ent-raios .95s cubic-bezier(.22,.9,.3,1) .22s both, raios-respira 7s ease-in-out 2.4s infinite}
+.logo #agua{animation:mar-balanco 11s ease-in-out 1.1s infinite}
+.logo #barco{animation:ent-barco 1.5s cubic-bezier(.25,.85,.3,1) .3s both, barco-boia 5.5s ease-in-out 2s infinite}
+.logo #nome{animation:ent-nome 1s ease-out .75s both}
+.logo #areia-rect{animation:ent-areia .95s cubic-bezier(.3,.85,.35,1) .75s both; transform-box:fill-box; transform-origin:center top}
+
+@media (prefers-reduced-motion:reduce){
+  .logo #marca-arte, .logo #raios, .logo #agua, .logo #barco, .logo #nome, .logo #areia-rect{animation:none !important}
+  .logo #raios{opacity:.72}
+  .logo #areia-rect{transform:none}
+}
+
+/* botão de tema */
+.tema{appearance:none; border:1px solid var(--line); background:var(--surface); cursor:pointer;
+  width:34px; height:34px; border-radius:50%; display:grid; place-items:center; color:var(--ink-2);
+  flex:0 0 auto; margin-left:10px; align-self:center; margin-bottom:6px; padding:0}
+.tema:hover{color:var(--ink); border-color:var(--ink-3)}
+.tema svg{width:17px; height:17px; display:block}
+.tema .ic-sol{display:none}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .tema .ic-sol{display:block}
+  :root:not([data-theme="light"]) .tema .ic-lua{display:none}
+}
+:root[data-theme="dark"] .tema .ic-sol{display:block}
+:root[data-theme="dark"] .tema .ic-lua{display:none}
+
+/* ---------- cabeçalho ---------- */
+header{position:sticky; top:0; z-index:30; background:var(--ground); border-bottom:1px solid var(--line)}
+.head-in{max-width:var(--w); margin:0 auto; padding:0 16px}
+nav{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav button{
+  appearance:none; border:0; background:none; cursor:pointer; font:inherit; white-space:nowrap; flex:0 0 auto;
+  font-weight:600; font-size:14.5px; color:var(--ink-3);
+  padding:9px 12px; border-bottom:2px solid transparent; border-radius:6px 6px 0 0;
+}
+nav button:hover{color:var(--ink)}
+nav button[aria-current="true"]{color:var(--accent); border-bottom-color:var(--accent)}
+.saved{margin-left:auto; align-self:center; font-size:11.5px; letter-spacing:.04em;
+  text-transform:uppercase; color:var(--ink-3); padding-bottom:4px; white-space:nowrap;
+  flex:0 1 auto; min-width:0; overflow:hidden; text-overflow:ellipsis}
+.saved.on{color:var(--good)}
+@media (max-width:640px){ .saved{display:none} }   /* com 4 abas + tema, o aviso não cabe */
+
+/* ---------- blocos ---------- */
+.card{background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:16px; box-shadow:var(--shadow)}
+.stack{display:flex; flex-direction:column; gap:14px}
+.stack-sm{display:flex; flex-direction:column; gap:8px}
+section.block{margin-top:22px}
+h2.sec{font-family:"Cormorant Garamond", Georgia, serif; font-size:25px; font-weight:600; letter-spacing:.005em; margin:0 0 3px; text-wrap:balance}
+p.sec-note{margin:0 0 10px; font-size:13.5px; color:var(--ink-2); max-width:62ch}
+.eyebrow{font-size:11.5px; text-transform:uppercase; letter-spacing:.09em; color:var(--ink-3); font-weight:700}
+
+/* ---------- formulário ---------- */
+label{display:block; font-size:12.5px; font-weight:600; color:var(--ink-2); margin-bottom:4px}
+input, select, textarea{
+  width:100%; font:inherit; color:var(--ink); background:var(--surface);
+  border:1px solid var(--line); border-radius:10px; padding:10px 11px;
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible{
+  outline:2px solid var(--accent); outline-offset:1px;
+}
+input.num{font-family:"IBM Plex Mono", ui-monospace, monospace; text-align:right; font-variant-numeric:tabular-nums}
+.grid2{display:grid; grid-template-columns:1fr 1fr; gap:10px}
+.grid3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+.grid2 > div, .grid3 > div{display:flex; flex-direction:column}
+.grid2 > div > label, .grid3 > div > label{flex:1 0 auto}
+.field-inline{display:flex; gap:8px}
+.field-inline .g{flex:1 1 auto}
+.field-inline .u{flex:0 0 92px}
+
+button.btn{
+  appearance:none; cursor:pointer; font:inherit; font-weight:600; font-size:14.5px;
+  border-radius:10px; padding:10px 14px; border:1px solid var(--line);
+  background:var(--surface-2); color:var(--ink);
+}
+button.btn:hover{border-color:var(--ink-3)}
+button.primary{background:var(--btn); border-color:var(--btn); color:var(--btn-txt)}
+button.primary:hover{filter:brightness(1.08)}
+button.ghost{background:none; border-style:dashed; color:var(--ink-2); width:100%}
+button.btn.grande{width:100%; padding:15px; font-size:16px; letter-spacing:.01em}
+.toast{
+  position:fixed; left:50%; bottom:26px; transform:translateX(-50%) translateY(8px);
+  z-index:60; background:var(--ink); color:var(--ground);
+  padding:12px 20px; border-radius:99px; font-size:14.5px; font-weight:600;
+  box-shadow:0 10px 30px -10px rgba(0,0,0,.45); opacity:0;
+  transition:opacity .18s ease, transform .18s ease; pointer-events:none; max-width:88vw; text-align:center;
+}
+.toast.on{opacity:1; transform:translateX(-50%) translateY(0)}
+.toast.aviso{background:var(--bad); color:#FFF}
+@media (prefers-reduced-motion:reduce){ .toast{transition:none} }
+button.tiny{font-size:12.5px; padding:6px 9px; border-radius:8px; background:none;
+  border:1px solid var(--line); color:var(--ink-2); cursor:pointer; font-family:inherit}
+button.tiny:hover{color:var(--ink); border-color:var(--ink-3)}
+button.tiny.danger{color:var(--bad); border-color:var(--bad)}
+.row-actions{display:flex; gap:6px; flex-wrap:wrap}
+.kit-add{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:12px}
+@media (max-width:520px){ .kit-add{grid-template-columns:1fr} }
+
+.seg{display:flex; background:var(--surface-2); border:1px solid var(--line); border-radius:10px; padding:3px; gap:3px}
+.seg button{flex:1; appearance:none; border:0; cursor:pointer; font:inherit; font-size:13.5px;
+  font-weight:600; background:none; color:var(--ink-2); border-radius:7px; padding:7px 6px}
+.seg button[aria-pressed="true"]{background:var(--surface); color:var(--ink); box-shadow:var(--shadow)}
+
+/* ---------- linhas de item ---------- */
+.item{display:grid; grid-template-columns:1fr 116px 34px; gap:8px; align-items:center;
+  padding:9px 0; border-top:1px solid var(--line)}
+.item:first-child{border-top:0}
+.item .qtd-wrap{position:relative}
+.item .qtd-wrap .un{position:absolute; right:9px; top:50%; transform:translateY(-50%);
+  font-size:11.5px; color:var(--ink-3); pointer-events:none; font-weight:600}
+.item input.num{padding-right:30px}
+.item .x{appearance:none; border:0; background:none; cursor:pointer; color:var(--ink-3);
+  font-size:19px; line-height:1; padding:6px; border-radius:8px}
+.item .x:hover{color:var(--bad); background:var(--bad-soft)}
+.item .sub{font-size:11.5px; color:var(--ink-3); grid-column:1 / -1; margin-top:-2px;
+  font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums;
+  display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+.lote{display:inline-flex; align-items:center; gap:6px; margin:0;
+  font-family:Jost, sans-serif; font-size:10px; font-weight:700;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--ink-3)}
+.lote input{width:118px; padding:4px 8px; font-size:12px; border-radius:8px;
+  font-family:"IBM Plex Mono", monospace; letter-spacing:0; text-transform:none}
+.busca{position:relative; margin:0 0 10px}
+.busca input{padding-left:34px}
+.busca svg{position:absolute; left:11px; top:50%; transform:translateY(-50%);
+  width:15px; height:15px; color:var(--ink-3); pointer-events:none}
+.busca-nada{font-size:13.5px; color:var(--ink-2); padding:16px 2px}
+.ficha{display:flex; gap:8px; flex-wrap:wrap; margin-top:10px}
+.ficha .selo{font-family:"IBM Plex Mono", monospace; font-size:12px; font-weight:600;
+  background:var(--accent-soft); color:var(--accent); padding:4px 10px; border-radius:8px}
+.recipe .lt{font-family:"IBM Plex Mono", monospace; font-size:11px; color:var(--ink-3)}
+
+/* ---------- formatos ---------- */
+.fmt{border:1px solid var(--line); border-radius:var(--r); background:var(--surface); overflow:hidden}
+#formatos{display:grid; gap:12px}
+@media (min-width:900px){ #formatos{grid-template-columns:repeat(auto-fit, minmax(330px, 1fr)); align-items:start} }
+.fmt-top{padding:14px; display:flex; flex-direction:column; gap:12px}
+.fmt-nome{display:flex; gap:8px; align-items:center}
+.fmt-nome input{font-weight:600}
+.fmt-nome .x{appearance:none; border:0; background:none; cursor:pointer; color:var(--ink-3);
+  font-size:20px; line-height:1; padding:7px; border-radius:8px; flex:0 0 auto}
+.fmt-nome .x:hover{color:var(--bad); background:var(--bad-soft)}
+.fmt-emb{border-top:1px solid var(--line); padding:12px 14px}
+.fmt-foot{
+  border-top:1px solid var(--line); background:var(--surface-2);
+  padding:11px 14px; display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;
+}
+.fmt-foot .kk{font-size:10.5px; text-transform:uppercase; letter-spacing:.06em; color:var(--ink-2); font-weight:700}
+.fmt-foot .vv{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums;
+  font-size:16px; font-weight:600; letter-spacing:-.01em}
+.fmt-foot .mid{text-align:center} .fmt-foot .end{text-align:right}
+
+/* ---------- preços por formato ---------- */
+.pv-row{display:grid; grid-template-columns:1fr 132px; gap:8px 12px;
+  align-items:center; padding:12px 0; border-top:1px solid var(--line)}
+.pv-row:first-child{border-top:0}
+.pv-row .nm{font-weight:600; font-size:15px}
+.pv-row .ct{font-size:12.5px; color:var(--ink-2); font-family:"IBM Plex Mono", monospace;
+  font-variant-numeric:tabular-nums; display:block}
+.pv-row .out{grid-column:1 / -1; margin-top:-2px; display:flex; flex-direction:column;
+  gap:5px; font-size:12px; color:var(--ink-3);
+  font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums}
+.pv-row .out b{font-weight:600; color:var(--ink-2)}
+.pv-row .o1, .pv-row .o2{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.pv-row .out b.lucro{color:var(--good)}
+.pv-row .out b.lucro.neg{color:var(--bad)}
+.pv-exemplo{margin:0; font-size:13px; color:var(--ink-2); background:var(--surface-2);
+  border-radius:10px; padding:10px 12px}
+.pv-exemplo b{color:var(--ink)}
+
+/* ---------- ordenação ---------- */
+.ordenar{display:flex; align-items:center; gap:9px; justify-content:flex-end;
+  margin:0 0 10px; flex-wrap:wrap}
+.ordenar label{margin:0; font-size:10.5px; letter-spacing:.09em; text-transform:uppercase;
+  font-weight:700; color:var(--ink-3)}
+.ordenar select{width:auto; min-width:190px; padding:7px 10px; font-size:13.5px}
+
+/* ---------- estoque ---------- */
+.est{border-top:1px solid var(--line); padding:13px 0; display:grid;
+  grid-template-columns:1fr auto; gap:6px 12px; align-items:start}
+.est:first-of-type{border-top:0}
+.est .nm{font-weight:600; font-size:15px}
+.est .dt{font-size:12.5px; color:var(--ink-2); font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums}
+.est .val{text-align:right; white-space:nowrap; font-family:"IBM Plex Mono", monospace;
+  font-variant-numeric:tabular-nums; font-size:13px; color:var(--ink-2)}
+.est .acoes{grid-column:1 / -1; display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:2px}
+.est .campo{position:relative; width:132px}
+.est .campo input{padding-right:32px; text-align:right}
+.est .campo .un{position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  font-size:11.5px; color:var(--ink-3); font-weight:600; pointer-events:none}
+.faz{border-top:1px solid var(--line); padding:12px 0; display:flex; gap:12px;
+  align-items:baseline; justify-content:space-between; flex-wrap:wrap}
+.faz:first-child{border-top:0}
+.faz .nm{font-weight:600; font-size:15px}
+.faz .qt{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums;
+  font-weight:600; white-space:nowrap}
+.faz .falta{flex-basis:100%; font-size:12.5px; color:var(--bad);
+  font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums}
+.produzi{display:flex; gap:12px; align-items:flex-start; padding:14px;
+  border:1px solid var(--line); border-radius:var(--r); background:var(--surface)}
+.produzi.on{border-color:var(--good); background:var(--good-soft)}
+.produzi input{width:20px; height:20px; flex:0 0 auto; margin-top:2px; accent-color:var(--good)}
+.produzi .txt{flex:1 1 auto}
+.produzi .txt{display:flex; flex-direction:column; gap:3px}
+.produzi .tt{display:block; font-weight:600; font-size:15px}
+.produzi .sub{display:block; font-size:12.5px; color:var(--ink-2)}
+
+/* ---------- lote proporcional ---------- */
+.esc-linha{display:grid; grid-template-columns:1fr 108px 78px; gap:8px 10px;
+  align-items:center; padding:9px 0; border-top:1px solid var(--line)}
+.esc-linha:first-of-type{border-top:0}
+.esc-linha .nm{font-weight:600; font-size:14.5px}
+.esc-linha .pede{font-size:11.5px; color:var(--ink-3); font-family:"IBM Plex Mono", monospace;
+  font-variant-numeric:tabular-nums; display:block}
+.esc-linha .frac{text-align:right; font-family:"IBM Plex Mono", monospace;
+  font-variant-numeric:tabular-nums; font-size:13px; font-weight:600; white-space:nowrap}
+.esc-linha.limita{background:var(--ouro-soft); margin:0 -10px; padding:9px 10px; border-radius:10px; border-top-color:transparent}
+.esc-linha.limita .frac{color:var(--ouro)}
+.esc-linha .campo{position:relative}
+.esc-linha .campo input{padding-right:32px; text-align:right}
+.esc-linha .campo .un{position:absolute; right:10px; top:50%; transform:translateY(-50%);
+  font-size:11.5px; color:var(--ink-3); font-weight:600; pointer-events:none}
+.esc-aviso{grid-column:1/-1; font-size:11px; letter-spacing:.08em; text-transform:uppercase;
+  font-weight:700; color:var(--ouro); margin-top:-2px}
+.esc-fator{display:flex; align-items:baseline; gap:10px; flex-wrap:wrap;
+  padding:14px; background:var(--surface-2); border-radius:12px}
+.esc-fator .big{font-family:"IBM Plex Mono", monospace; font-size:26px; font-weight:600; letter-spacing:-.02em}
+.esc-fator .txt{font-size:13px; color:var(--ink-2)}
+.esc-prev{border-top:1px solid var(--line); padding-top:12px; margin-top:4px}
+.esc-prev .par{display:flex; justify-content:space-between; gap:12px; padding:6px 0; font-size:13.5px}
+.esc-prev .par b{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums; font-weight:600}
+.esc-prev .tt{font-size:11px; letter-spacing:.09em; text-transform:uppercase; font-weight:700;
+  color:var(--ink-3); margin:10px 0 4px}
+@media (max-width:520px){ .esc-linha{grid-template-columns:1fr 96px 66px} }
+
+/* ---------- resultados ---------- */
+.lines{display:flex; flex-direction:column; gap:0}
+.line{display:flex; justify-content:space-between; align-items:baseline; gap:12px;
+  padding:8px 0; border-top:1px solid var(--line); font-size:14.5px}
+.line:first-child{border-top:0}
+.line .k{color:var(--ink-2)}
+.line .v{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums; font-weight:500}
+.line.total{border-top:2px solid var(--ink); padding-top:11px; font-weight:700; font-size:16px}
+.line.total .k{color:var(--ink)}
+
+.tabela{width:100%; border-collapse:collapse; font-size:13.5px}
+.tabela th{text-align:right; font-size:10.5px; text-transform:uppercase; letter-spacing:.06em;
+  color:var(--ink-3); font-weight:700; padding:0 0 7px; white-space:nowrap}
+.tabela th:first-child{text-align:left}
+.tabela td{padding:8px 0; border-top:1px solid var(--line); text-align:right;
+  font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
+.tabela td:first-child{text-align:left; font-family:Jost, sans-serif; font-weight:600; white-space:normal}
+.tabela td + td, .tabela th + th{padding-left:10px}
+.scroll-x{overflow-x:auto; -webkit-overflow-scrolling:touch}
+
+.bar{position:fixed; left:0; right:0; bottom:0; z-index:40; background:var(--surface);
+  border-top:1px solid var(--line); box-shadow:0 -8px 24px -18px rgba(0,0,0,.5);
+  padding:10px 16px calc(10px + env(safe-area-inset-bottom))}
+.bar-in{max-width:var(--w); margin:0 auto; display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px}
+.stat .kk{font-size:10.5px; text-transform:uppercase; letter-spacing:.07em; color:var(--ink-3); font-weight:700}
+.stat .vv{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums;
+  font-size:19px; font-weight:600; letter-spacing:-.02em}
+.stat.mid{text-align:center} .stat.end{text-align:right}
+.vv.accent{color:var(--ouro)} .vv.good{color:var(--good)} .vv.bad{color:var(--bad)}
+
+/* ---------- listas ---------- */
+.recipe{display:flex; align-items:center; gap:12px; width:100%; text-align:left;
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r);
+  padding:13px 15px; cursor:pointer; font:inherit; color:var(--ink); box-shadow:var(--shadow)}
+.recipe:hover{border-color:var(--accent-line)}
+.recipe > span:first-child{min-width:0}
+.recipe .nm{font-weight:600; font-size:16px}
+.recipe .mt{font-size:12.5px; color:var(--ink-3)}
+.recipe .pv{margin-left:auto; text-align:right; flex:0 0 auto; white-space:nowrap}
+.recipe .pv .a{font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums; font-weight:600; color:var(--ouro)}
+.recipe .pv .b{font-size:11.5px; color:var(--ink-3); font-family:"IBM Plex Mono", monospace}
+.colecao{margin:22px 0 9px; display:flex; align-items:center; gap:9px}
+.colecao .nm{font-family:"Cormorant Garamond", Georgia, serif; font-size:22px; font-weight:600}
+.colecao .ct{font-size:11.5px; color:var(--ink-3); background:var(--surface-2); padding:2px 8px; border-radius:99px; font-weight:600}
+
+.pantry{border-top:1px solid var(--line); padding:11px 0; display:grid;
+  grid-template-columns:1fr auto; gap:4px 12px; align-items:start}
+.pantry:first-of-type{border-top:0}
+.pantry .nm{font-weight:600; font-size:15px}
+.pantry .dt{font-size:12.5px; color:var(--ink-2); font-family:"IBM Plex Mono", monospace; font-variant-numeric:tabular-nums}
+.pantry .uc{font-size:12.5px; color:var(--accent); font-weight:600;
+  font-family:"IBM Plex Mono", monospace; text-align:right; white-space:nowrap}
+
+.empty{text-align:center; padding:34px 18px; color:var(--ink-2)}
+.empty h3{font-family:"Cormorant Garamond", Georgia, serif; font-size:23px; margin:0 0 6px; color:var(--ink)}
+.empty p{margin:0 auto; font-size:14px; max-width:44ch}
+.hint{font-size:12.5px; color:var(--ink-2); background:var(--surface-2); border-radius:10px; padding:9px 11px; margin-top:12px}
+.hint.warn{background:var(--bad-soft); color:var(--bad)}
+.pill{display:inline-block; font-size:11.5px; font-weight:700; letter-spacing:.04em;
+  padding:3px 9px; border-radius:99px; background:var(--accent-soft); color:var(--accent)}
+.pill.good{background:var(--good-soft); color:var(--good)}
+.pill.bad{background:var(--bad-soft); color:var(--bad)}
+.backlink{appearance:none; background:none; border:0; cursor:pointer; font:inherit; font-weight:600;
+  font-size:14px; color:var(--ink-2); padding:14px 0 0; display:inline-flex; gap:6px; align-items:center}
+.backlink:hover{color:var(--accent)}
+textarea.json{font-family:"IBM Plex Mono", monospace; font-size:12px; min-height:180px; resize:vertical}
+@media (max-width:520px){
+  .grid3{grid-template-columns:1fr 1fr}
+  .grid3 > .span{grid-column:1 / -1}
+  .item{grid-template-columns:1fr 100px 32px}
+  .brand h1{font-size:23px}
+  .fmt-foot .vv{font-size:15px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important; animation:none !important}}
+</style>
+
+<div class="marca">
+  <div class="marca-in">
+    <button class="logo-btn" data-act="marca" title="Tocar para ver de novo">__MARCA_SVG__</button>
+    <p class="tagline">custo e preço dos sabonetes</p>
+  </div>
+</div>
+
+<header>
+  <div class="head-in">
+    <nav>
+      <button data-nav="receitas">Receitas</button>
+      <button data-nav="despensa">Despensa</button>
+      <button data-nav="kits">Kits</button>
+      <button data-nav="backup">Backup</button>
+      <span class="saved" id="saved"></span>
+      <button class="tema" data-act="tema" aria-label="Alternar entre modo claro e escuro" title="Modo claro / escuro">
+        <svg class="ic-lua" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 14.5A8.5 8.5 0 0 1 9.5 3.5a8.5 8.5 0 1 0 11 11z"/></svg>
+        <svg class="ic-sol" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.6v2.2M12 19.2v2.2M4.3 4.3l1.6 1.6M18.1 18.1l1.6 1.6M2.6 12h2.2M19.2 12h2.2M4.3 19.7l1.6-1.6M18.1 5.9l1.6-1.6"/></svg>
+      </button>
+    </nav>
+  </div>
+</header>
+
+<div class="wrap"><main id="app"></main></div>
+<div class="bar" id="bar" hidden><div class="bar-in" id="barIn"></div></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============ estado ============ */
+var KEY = "saboaria.v1", KEY_ANTIGA = "sabonaria.v1";
+var UNIDADES = {
+  g:{base:"g", f:1, rot:"g"}, kg:{base:"g", f:1000, rot:"kg"},
+  ml:{base:"ml", f:1, rot:"ml"}, L:{base:"ml", f:1000, rot:"L"},
+  un:{base:"un", f:1, rot:"un"}
+};
+var state = vazio();
+var view = "receitas";
+var editId = null;
+var confirmando = null;
+var formAberto = null;
+var busca = "";
+var canPublish = false;
+
+function vazio(){ return { v:2, updatedAt:null, insumos:[], receitas:[], kits:[] }; }
+function uid(){ return Math.random().toString(36).slice(2,9) + Date.now().toString(36).slice(-3); }
+
+/* ============ números e moeda ============ */
+function num(v){
+  if (typeof v === "number") return isFinite(v) ? v : 0;
+  if (v == null) return 0;
+  var s = String(v).trim().replace(/\s|R\$/g, "");
+  if (!s) return 0;
+  if (s.indexOf(",") > -1) s = s.replace(/\./g, "").replace(",", ".");
+  var n = parseFloat(s);
+  return isFinite(n) ? n : 0;
+}
+var BRL = new Intl.NumberFormat("pt-BR", {style:"currency", currency:"BRL"});
+var BRL4 = new Intl.NumberFormat("pt-BR", {style:"currency", currency:"BRL", minimumFractionDigits:4, maximumFractionDigits:4});
+function money(n){ return BRL.format(isFinite(n) ? n : 0); }
+function moneyFine(n){ return (Math.abs(n) > 0 && Math.abs(n) < 0.01) ? BRL4.format(n) : BRL.format(n||0); }
+function moneyG(n){ return (Math.abs(n) < 1) ? BRL4.format(n||0) : BRL.format(n||0); }
+function dec(n, c){
+  c = c == null ? 2 : c;
+  return new Intl.NumberFormat("pt-BR", {minimumFractionDigits:0, maximumFractionDigits:c}).format(isFinite(n)?n:0);
+}
+function dec2(n){ return new Intl.NumberFormat("pt-BR", {minimumFractionDigits:2, maximumFractionDigits:2}).format(isFinite(n)?n:0); }
+function br(v){ return v == null || v === "" ? "" : String(v).replace(".", ","); }
+function esc(s){
+  return String(s == null ? "" : s).replace(/[&<>"']/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+
+/* ============ cálculo ============ */
+function insumo(id){
+  for (var i=0;i<state.insumos.length;i++) if (state.insumos[i].id === id) return state.insumos[i];
+  return null;
+}
+function custoBase(ins){                    // quanto custa 1 g / 1 ml / 1 un
+  if (!ins) return 0;
+  var u = UNIDADES[ins.unidade] || UNIDADES.g;
+  var qtdBase = num(ins.qtd) * u.f;
+  return qtdBase > 0 ? num(ins.preco) / qtdBase : 0;
+}
+function baseDe(ins){ return (UNIDADES[(ins && ins.unidade) || "g"] || UNIDADES.g).base; }
+function precificar(custo, r){
+  var pv = num(r.precoValor);
+  if (r.precoModo === "markup") return custo * (1 + pv / 100);
+  return custo * (pv > 0 ? pv : 0);   // multiplicador
+}
+function custoEmbalagem(lista){             // por sabonete
+  var t = 0;
+  (lista || []).forEach(function(it){
+    var ins = insumo(it.insumoId);
+    if (ins) t += num(it.qtd) * custoBase(ins);
+  });
+  return t;
+}
+
+function calcular(r){
+  var o = { ingredientes:0, embalagem:0, trabalho:0, custoLote:0, pesoTotal:0,
+            unidades:0, porGrama:0, faturamento:0, lucroLote:0, formatos:[], porPeso:true };
+
+  (r.itens || []).forEach(function(it){
+    var ins = insumo(it.insumoId);
+    if (ins) o.ingredientes += num(it.qtd) * custoBase(ins);
+  });
+
+  var formatos = r.formatos || [];
+  formatos.forEach(function(f){
+    var q = Math.max(0, Math.round(num(f.qtd)));
+    o.unidades += q;
+    o.pesoTotal += num(f.peso) * q;
+  });
+
+  var tv = num(r.trabalhoValor);
+  var trabalhoPorUn = (r.trabalhoModo === "unidade") ? tv : 0;
+  o.trabalho = (r.trabalhoModo === "unidade") ? tv * o.unidades : tv;
+
+  // o que se reparte entre os sabonetes conforme o peso de cada um
+  var rateavel = o.ingredientes + (r.trabalhoModo === "unidade" ? 0 : tv);
+  o.porPeso = o.pesoTotal > 0;
+  o.porGrama = o.porPeso ? rateavel / o.pesoTotal : 0;
+  var porUnidadeIgual = o.unidades > 0 ? rateavel / o.unidades : 0;
+
+  formatos.forEach(function(f){
+    var q = Math.max(0, Math.round(num(f.qtd)));
+    var peso = num(f.peso);
+    var emb = custoEmbalagem(f.embalagem);
+    var massa = o.porPeso ? o.porGrama * peso : porUnidadeIgual;
+    var custoUn = massa + emb + trabalhoPorUn;
+    var sugerido = precificar(custoUn, r);
+    var praticado = num(f.precoPraticado);
+    var preco = praticado > 0 ? praticado : sugerido;
+    o.embalagem += emb * q;
+    o.faturamento += preco * q;
+    o.formatos.push({
+      i:o.formatos.length, ref:f, nome:f.nome, qtd:q, peso:peso, pesoLote:peso * q,
+      massa:massa, emb:emb, custoUn:custoUn, sugerido:sugerido,
+      praticado:praticado, preco:preco, lucroUn:preco - custoUn,
+      margem: preco > 0 ? ((preco - custoUn) / preco) * 100 : 0,
+      custoLote:custoUn * q, lucroLote:(preco - custoUn) * q
+    });
+  });
+
+  o.custoLote = o.ingredientes + o.trabalho + o.embalagem;
+  o.lucroLote = o.faturamento - o.custoLote;
+  o.margemLote = o.faturamento > 0 ? (o.lucroLote / o.faturamento) * 100 : 0;
+  return o;
+}
+
+/* ============ migração ============ */
+var migrou = false;
+function migrar(d){
+  if (!d || !Array.isArray(d.receitas)) return d;
+  if (!Array.isArray(d.kits)) d.kits = [];
+  d.receitas.forEach(function(r){
+    if (r.precoModo === "margem"){          // regra antiga: margem sobre a venda
+      var m = Math.min(Math.max(num(r.precoValor), 0), 95) / 100;
+      r.precoModo = "multiplicador";
+      r.precoValor = m < 1 ? Math.round((1 / (1 - m)) * 100) / 100 : 2;
+      migrou = true;
+    }
+    if (Array.isArray(r.formatos)) return;
+    migrou = true;
+    r.formatos = [{
+      id: uid(),
+      nome: "Padrão",
+      peso: r.pesoUnit != null ? r.pesoUnit : "",
+      qtd: r.rendimento != null ? r.rendimento : "",
+      embalagem: r.embalagem || [],
+      precoPraticado: r.precoPraticado != null ? r.precoPraticado : ""
+    }];
+    delete r.pesoUnit; delete r.rendimento; delete r.embalagem; delete r.precoPraticado;
+  });
+  d.v = 2;
+  return d;
+}
+
+/* ============ persistência ============ */
+var saveTimer = null, publishing = false, pendente = false;
+function marcar(txt, ok){
+  var el = document.getElementById("saved");
+  el.textContent = txt; el.className = "saved" + (ok ? " on" : "");
+}
+function agendarSave(){
+  state.updatedAt = new Date().toISOString();
+  try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+  marcar("salvando…", false);
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(gravar, 1400);
+}
+function gravar(){
+  escreveArquivo();
+  if (!canPublish){ marcar(arq && arqPermitido ? "salvo · cópia" : "salvo", true); return; }
+  if (publishing){ pendente = true; return; }
+  publishing = true;
+  var corpo = JSON.stringify(state);
+  window.claude.use("artifact").then(function(a){
+    if (!a) throw new Error("sem capacidade");
+    return a.publish({ "data/dados.json": { content: corpo, contentType: "application/json" } });
+  }).then(function(){
+    publishing = false; marcar("salvo", true);
+    if (pendente){ pendente = false; gravar(); }
+  })["catch"](function(err){
+    publishing = false; pendente = false;
+    var code = err && err.code;
+    if (code === "conflict"){ marcar("recarregando…", false); return; }
+    if (code === "not_writer" || code === "not_granted" || code === "capability_disabled" ||
+        code === "not_declared" || code === "capability_removed"){ canPublish = false; }
+    marcar("salvo", true);
+  });
+}
+function carregar(){
+  var local = null;
+  try {
+    local = JSON.parse(localStorage.getItem(KEY) || "null");
+    if (!local) local = JSON.parse(localStorage.getItem(KEY_ANTIGA) || "null");   // dados da versão anterior
+  } catch(e){}
+  var busca = canPublish
+    ? fetch("data/dados.json", {cache:"no-store"}).then(function(r){ return r.ok ? r.json() : null; })["catch"](function(){ return null; })
+    : Promise.resolve(null);          // fora do claude.ai os dados vivem só no aparelho
+  return busca.then(function(remoto){
+    var t1 = local && local.updatedAt ? Date.parse(local.updatedAt) : 0;
+    var t2 = remoto && remoto.updatedAt ? Date.parse(remoto.updatedAt) : 0;
+    var win = (t1 > t2 ? local : remoto) || local || remoto;
+    if (win && Array.isArray(win.insumos) && Array.isArray(win.receitas)) state = migrar(win);
+    marcar(state.updatedAt ? "salvo" : "", !!state.updatedAt);
+    if (migrou) agendarSave();
+    // rede de segurança: navegador vazio mas o arquivo de cópia ainda acessível
+    if (arq && arqPermitido && !state.insumos.length && !state.receitas.length){
+      return arq.getFile().then(function(f){ return f.text(); }).then(function(txt){
+        var d = JSON.parse(txt);
+        if (d && Array.isArray(d.insumos) && Array.isArray(d.receitas) && (d.insumos.length || d.receitas.length)){
+          state = migrar(d);
+          try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+        }
+      })["catch"](function(){});
+    }
+  });
+}
+
+/* ============ navegação ============ */
+function ir(v, id){
+  if (v !== "receitas") busca = "";
+  view = v; editId = id || null; confirmando = null; window.scrollTo(0,0); render(); }
+function render(){
+  Array.prototype.forEach.call(document.querySelectorAll("nav button"), function(b){
+    var alvo = (view === "editor") ? "receitas" : (view === "kit" ? "kits" : view);
+    b.setAttribute("aria-current", b.dataset.nav === alvo ? "true" : "false");
+  });
+  var app = document.getElementById("app");
+  if (view === "receitas") app.innerHTML = telaReceitas();
+  else if (view === "despensa") app.innerHTML = telaDespensa();
+  else if (view === "kits") app.innerHTML = telaKits();
+  else if (view === "kit") app.innerHTML = telaKitEditor();
+  else if (view === "backup") app.innerHTML = telaBackup();
+  else if (view === "editor") app.innerHTML = telaEditor();
+  atualizarBarra();
+}
+
+/* ============ busca e rastreio ============ */
+function semAcento(t){
+  return String(t || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+}
+function lotesDe(r){                       // todos os lotes usados nesta produção
+  var vistos = {}, saida = [];
+  function junta(lote, insumoId){
+    var l = (lote || "").trim(); if (!l) return;
+    var ins = insumo(insumoId);
+    var chave = l + "|" + (ins ? ins.nome : "");
+    if (vistos[chave]) return;
+    vistos[chave] = 1;
+    saida.push({ lote:l, nome: ins ? ins.nome : "produto removido" });
+  }
+  (r.itens || []).forEach(function(it){ junta(it.lote, it.insumoId); });
+  (r.formatos || []).forEach(function(f){
+    (f.embalagem || []).forEach(function(it){ junta(it.lote, it.insumoId); });
+  });
+  return saida;
+}
+function combina(r, termo){
+  if (!termo) return null;
+  var t = semAcento(termo);
+  if (semAcento(r.nome).indexOf(t) > -1) return "nome";
+  if (semAcento(r.colecao).indexOf(t) > -1) return "coleção";
+  if (semAcento(r.codigo).indexOf(t) > -1) return "lote desta produção";
+  var achou = null;
+  lotesDe(r).forEach(function(l){
+    if (!achou && semAcento(l.lote).indexOf(t) > -1) achou = "lote " + l.lote + " de " + l.nome;
+  });
+  if (achou) return achou;
+  var ids = {};
+  (r.itens || []).forEach(function(it){ ids[it.insumoId] = 1; });
+  (r.formatos || []).forEach(function(f){ (f.embalagem || []).forEach(function(it){ ids[it.insumoId] = 1; }); });
+  Object.keys(ids).forEach(function(id){
+    var ins = insumo(id);
+    if (!achou && ins && semAcento(ins.nome).indexOf(t) > -1) achou = "usa " + ins.nome;
+  });
+  return achou;
+}
+
+/* ============ tela: receitas ============ */
+function telaReceitas(){
+  var h = '<section class="block"><h2 class="sec">Suas receitas</h2>' +
+    '<p class="sec-note">Cada receita é uma massa: os produtos que você usou e os formatos que saíram dela.</p>' +
+    '<button class="btn primary" data-act="nova-receita">+ Nova receita</button></section>';
+
+  if (state.receitas.length){
+    h += '<section class="block"><div class="busca">' +
+      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.6-3.6"/></svg>' +
+      '<input type="search" id="campo-busca" data-busca value="' + esc(busca) + '" ' +
+      'placeholder="Buscar por nome, coleção ou lote" aria-label="Buscar receitas"></div></section>';
+  }
+
+  if (!state.receitas.length){
+    return h + '<section class="block"><div class="card empty"><h3>Nenhuma receita ainda</h3>' +
+      '<p>Antes da primeira, cadastre na <b>Despensa</b> os produtos que você compra — base, óleo, essência, corante, embalagem. Depois é só montar a receita com eles.</p>' +
+      '<div class="row-actions" style="justify-content:center; margin-top:16px">' +
+        '<button class="btn" data-act="' + (temArquivos ? "arq-abrir" : "arq-input") + '">Já tenho um backup — restaurar</button>' +
+      '</div>' +
+      '<input type="file" id="arq-input" accept=".json,application/json" style="display:none">' +
+      '</div></section>';
+  }
+
+  var termo = busca.trim();
+  var motivos = {};
+  var lista = state.receitas;
+  if (termo){
+    lista = [];
+    state.receitas.forEach(function(r){
+      var m = combina(r, termo);
+      if (m){ motivos[r.id] = m; lista.push(r); }
+    });
+    h += '<section class="block"><p class="sec-note" style="margin:0">' +
+      (lista.length ? lista.length + (lista.length === 1 ? ' produção encontrada' : ' produções encontradas') + ' para “' + esc(termo) + '”'
+                    : 'Nenhuma produção usou “' + esc(termo) + '”.') +
+      '</p></section>';
+    if (!lista.length) return h;
+  }
+
+  var grupos = {}, ordem = [];
+  lista.forEach(function(r){
+    var c = (r.colecao || "").trim() || "Sem coleção";
+    if (!grupos[c]){ grupos[c] = []; ordem.push(c); }
+    grupos[c].push(r);
+  });
+  ordem.sort(function(a,b){
+    if (a === "Sem coleção") return 1;
+    if (b === "Sem coleção") return -1;
+    return a.localeCompare(b, "pt-BR");
+  });
+
+  ordem.forEach(function(c){
+    h += '<div class="colecao"><span class="nm">' + esc(c) + '</span><span class="ct">' +
+      grupos[c].length + (grupos[c].length === 1 ? " receita" : " receitas") + '</span></div><div class="stack-sm">';
+    grupos[c].forEach(function(r){
+      var k = calcular(r);
+      var nf = (r.formatos || []).length;
+      h += '<button class="recipe" data-act="abrir" data-id="' + r.id + '">' +
+        '<span><span class="nm">' + esc(r.nome || "Receita sem nome") + '</span><br>' +
+        (r.codigo ? '<span class="lt">' + esc(r.codigo) + (r.data ? ' · ' + dataBR(r.data) : '') + '</span><br>' : '') +
+        '<span class="mt">' + k.unidades + ' sabonetes · ' + nf + (nf === 1 ? " formato" : " formatos") +
+        '<br>custa ' + money(k.custoLote) + '</span>' +
+        (motivos[r.id] ? '<br><span class="lt" style="color:var(--accent)">' + esc(motivos[r.id]) + '</span>' : '') +
+        '</span>' +
+        '<span class="pv">' + (k.unidades
+          ? '<span class="a">' + money(k.lucroLote) + '</span><br><span class="b">lucro do lote</span>'
+          : '<span class="a" style="color:var(--ink-3)">—</span><br><span class="b">falta o rendimento</span>') + '</span>' +
+        '</button>';
+    });
+    h += '</div>';
+  });
+  return h;
+}
+
+/* ============ ordenação da despensa ============ */
+var ORDENS = [
+  { id:"nome",     rot:"Nome (A–Z)" },
+  { id:"caro",     rot:"Mais caro primeiro" },
+  { id:"barato",   rot:"Mais barato primeiro" },
+  { id:"cadastro", rot:"Ordem de cadastro" }
+];
+var ORDENS_ESTOQUE = [{ id:"acabando", rot:"Acabando primeiro" }].concat(ORDENS);
+
+function ordemDe(onde){
+  if (!state.ordem) state.ordem = {};
+  return state.ordem[onde] || "nome";
+}
+function ordenaInsumos(lista, criterio){
+  var saida = lista.slice();
+  if (criterio === "cadastro") return saida;
+  if (criterio === "caro" || criterio === "barato"){
+    saida.sort(function(a, b){
+      var d = custoBase(b) - custoBase(a);
+      if (criterio === "barato") d = -d;
+      return d || String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR");
+    });
+    return saida;
+  }
+  if (criterio === "acabando"){
+    saida.sort(function(a, b){
+      function fr(i){
+        var emb = porEmbalagem(i);
+        return emb > 0 ? num(i.estoque) / emb : (num(i.estoque) > 0 ? Infinity : 0);
+      }
+      return fr(a) - fr(b) || String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR");
+    });
+    return saida;
+  }
+  saida.sort(function(a, b){ return String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR"); });
+  return saida;
+}
+function insumosDe(tipo, onde){
+  var lista = state.insumos.filter(function(i){ return (i.tipo || "ingrediente") === tipo; });
+  return ordenaInsumos(lista, ordemDe(onde));
+}
+function seletorOrdem(onde, opcoesLista){
+  var atual = ordemDe(onde);
+  return '<div class="ordenar"><label for="ord-' + onde + '">Ordenar por</label>' +
+    '<select id="ord-' + onde + '" data-ordem="' + onde + '">' +
+    opcoesLista.map(function(o){
+      return '<option value="' + o.id + '"' + (o.id === atual ? " selected" : "") + '>' + o.rot + '</option>';
+    }).join("") + '</select></div>';
+}
+
+/* ============ tela: despensa ============ */
+function telaDespensa(){
+  var h = '<section class="block"><h2 class="sec">Despensa</h2>' +
+    '<p class="sec-note">Cadastre cada produto do jeito que você compra: o tamanho da embalagem e quanto pagou. O app descobre sozinho quanto vale cada grama.</p>' +
+    (state.insumos.length > 1 ? seletorOrdem("despensa", ORDENS) : '') + '</section>';
+  h += bloco("Ingredientes", "O que entra dentro do sabonete: base, óleos, essências, corantes, argilas, ervas.", "ingrediente");
+  h += bloco("Embalagem e rótulo", "O que embala o sabonete: saquinho, caixa, fita, etiqueta, lacre.", "embalagem");
+  return h;
+
+  function bloco(titulo, nota, tipo){
+    var lista = insumosDe(tipo, "despensa");
+    var s = '<section class="block"><h2 class="sec">' + titulo + '</h2><p class="sec-note">' + nota + '</p><div class="card">';
+    if (!lista.length) s += '<p style="margin:2px 0 12px; color:var(--ink-3); font-size:14px">Nada cadastrado ainda.</p>';
+    lista.forEach(function(ins){
+      var cb = custoBase(ins), base = baseDe(ins);
+      var porQuanto = base === "un" ? "por unidade" : "por 100 " + base;
+      var valor = base === "un" ? cb : cb * 100;
+      var perguntando = confirmando === "ins:" + ins.id;
+      s += '<div class="pantry">' +
+        '<div><div class="nm">' + esc(ins.nome || "Sem nome") + '</div>' +
+        '<div class="dt">' + dec(num(ins.qtd), 3) + ' ' + (UNIDADES[ins.unidade] || UNIDADES.g).rot +
+        ' por ' + money(num(ins.preco)) + (ins.lote ? ' · lote ' + esc(ins.lote) : '') + '</div></div>' +
+        '<div><div class="uc">' + moneyFine(valor) + '</div>' +
+        '<div class="dt" style="text-align:right; font-size:11px">' + porQuanto + '</div></div>' +
+        '<div class="row-actions" style="grid-column:1/-1; margin-top:6px">' +
+          '<button class="tiny" data-act="ins-editar" data-id="' + ins.id + '">Editar</button>' +
+          (perguntando
+            ? '<button class="tiny danger" data-act="ins-excluir" data-id="' + ins.id + '">Confirmar exclusão</button>' +
+              '<button class="tiny" data-act="cancelar">Cancelar</button>'
+            : '<button class="tiny" data-act="ins-perguntar" data-id="' + ins.id + '">Excluir</button>') +
+        '</div>';
+      if (formAberto === ins.id) s += formInsumo(ins);
+      s += '</div>';
+    });
+    if (formAberto === "novo:" + tipo){
+      s += '<div style="border-top:1px solid var(--line); margin-top:8px">' +
+        formInsumo({tipo:tipo, unidade: tipo === "embalagem" ? "un" : "g"}) + '</div>';
+    } else {
+      s += '<div style="margin-top:12px"><button class="btn ghost" data-act="ins-novo" data-tipo="' + tipo +
+        '">+ Adicionar ' + (tipo === "embalagem" ? "item de embalagem" : "ingrediente") + '</button></div>';
+    }
+    return s + '</div></section>';
+  }
+}
+function formInsumo(ins){
+  var opts = Object.keys(UNIDADES).map(function(u){
+    return '<option value="' + u + '"' + ((ins.unidade || "g") === u ? " selected" : "") + '>' + UNIDADES[u].rot + '</option>';
+  }).join("");
+  return '<div class="stack" style="grid-column:1/-1; margin-top:10px; padding:14px; background:var(--surface-2); border-radius:12px">' +
+    '<div><label for="f-nome">Nome do produto</label>' +
+    '<input id="f-nome" type="text" value="' + esc(ins.nome || "") + '" placeholder="' +
+      (ins.tipo === "embalagem" ? "Saquinho kraft com visor" : "Base glicerinada branca") + '"></div>' +
+    '<div class="grid2">' +
+      '<div><label for="f-qtd">Tamanho da embalagem</label><div class="field-inline">' +
+        '<div class="g"><input id="f-qtd" class="num" inputmode="decimal" type="text" value="' + esc(br(ins.qtd)) + '" placeholder="1"></div>' +
+        '<div class="u"><select id="f-un">' + opts + '</select></div></div></div>' +
+      '<div><label for="f-preco">Quanto você pagou</label>' +
+        '<input id="f-preco" class="num" inputmode="decimal" type="text" value="' + esc(br(ins.preco)) + '" placeholder="0,00"></div>' +
+    '</div>' +
+    '<div><label for="f-lote">Lote do pacote que está aberto</label>' +
+      '<input id="f-lote" type="text" value="' + esc(ins.lote || "") + '" placeholder="o código impresso na embalagem">' +
+      '<p class="sec-note" style="margin:6px 0 0">Cada receita feita daqui para frente guarda este lote. Ao abrir um pacote novo, troque aqui.</p></div>' +
+    '<div class="row-actions">' +
+      '<button class="btn primary" data-act="ins-salvar" data-id="' + esc(ins.id || "") + '" data-tipo="' + esc(ins.tipo || "ingrediente") + '">Salvar produto</button>' +
+      '<button class="btn" data-act="cancelar">Cancelar</button>' +
+    '</div></div>';
+}
+
+/* ============ editor de receita ============ */
+function receita(){
+  for (var i=0;i<state.receitas.length;i++) if (state.receitas[i].id === editId) return state.receitas[i];
+  return null;
+}
+function telaEditor(){
+  var r = receita();
+  if (!r) return '<section class="block"><div class="card empty"><h3>Receita não encontrada</h3></div></section>';
+  var k = calcular(r);
+
+  var h = '<button class="backlink" data-act="voltar">← Todas as receitas</button>';
+
+  h += '<section class="block"><h2 class="sec">A receita</h2><div class="card stack">' +
+    '<div><label for="r-nome">Nome</label><input id="r-nome" type="text" data-r="nome" value="' + esc(r.nome || "") + '" placeholder="Massa de lavanda"></div>' +
+    '<div><label for="r-col">Coleção</label><input id="r-col" type="text" data-r="colecao" value="' + esc(r.colecao || "") + '" placeholder="Coleção Jardim" list="colecoes">' + datalist("colecoes", colecoes()) + '</div>' +
+    '<div class="grid2">' +
+      '<div><label for="r-data">Data da produção</label><input id="r-data" type="date" data-r="data" value="' + esc(r.data || "") + '"></div>' +
+      '<div><label for="r-cod">Lote desta produção</label><input id="r-cod" type="text" data-r="codigo" value="' + esc(r.codigo || "") + '" placeholder="' + esc(codigoSugerido(r)) + '"></div>' +
+    '</div>' +
+    '<p class="sec-note" style="margin:0">Escreva este código no sabonete ou na etiqueta. É por ele que você reencontra tudo o que entrou nesta fornada.</p>' +
+    '</div></section>';
+
+  h += secIngredientes(r);
+  h += secFormatos(r, k);
+
+  h += '<section class="block"><h2 class="sec">Seu trabalho</h2>' +
+    '<p class="sec-note">O quanto você quer cobrar pelo seu tempo, mais luz, gás e água da produção. Some tudo num valor só.</p><div class="card stack">' +
+    '<div class="grid2">' +
+      '<div><label for="r-trab">Valor</label><input id="r-trab" class="num" inputmode="decimal" type="text" data-r="trabalhoValor" value="' + esc(br(r.trabalhoValor)) + '" placeholder="0,00"></div>' +
+      '<div><label>Contar esse valor</label><div class="seg">' +
+        '<button data-seg="trabalhoModo" data-val="lote" aria-pressed="' + (r.trabalhoModo !== "unidade") + '">no lote</button>' +
+        '<button data-seg="trabalhoModo" data-val="unidade" aria-pressed="' + (r.trabalhoModo === "unidade") + '">em cada um</button>' +
+      '</div></div>' +
+    '</div>' +
+    '<p class="sec-note" style="margin:0">No lote, o valor se reparte pelo peso — o sabonete maior carrega a fatia maior. Em cada um, todo sabonete recebe o mesmo valor.</p>' +
+    '</div></section>';
+
+  h += secPreco(r, k);
+
+  h += '<section class="block"><h2 class="sec">A conta final</h2><div class="card" id="resumo">' + resumoHTML(r) + '</div></section>';
+
+  h += '<section class="block">' +
+    '<button class="btn primary grande" data-act="rec-salvar">Salvar receita</button>' +
+    '<p class="sec-note" style="margin:10px 0 0; text-align:center">Suas alterações já vão sendo guardadas enquanto você digita. Este botão só fecha a receita e volta para a lista.</p>' +
+    '</section>';
+
+  h += '<section class="block"><div class="row-actions">' +
+    '<button class="btn" data-act="duplicar" data-id="' + r.id + '">Duplicar receita</button>' +
+    (confirmando === "rec:" + r.id
+      ? '<button class="btn" data-act="rec-excluir" data-id="' + r.id + '" style="color:var(--bad); border-color:var(--bad)">Confirmar exclusão</button><button class="btn" data-act="cancelar">Cancelar</button>'
+      : '<button class="btn" data-act="rec-perguntar" data-id="' + r.id + '">Excluir receita</button>') +
+    '</div></section>';
+
+  return h;
+}
+function colecoes(){
+  var v = {}, out = [];
+  state.receitas.forEach(function(r){
+    var c = (r.colecao || "").trim();
+    if (c && !v[c]){ v[c] = 1; out.push(c); }
+  });
+  return out;
+}
+function nomesFormatos(){
+  var v = {}, out = [];
+  state.receitas.forEach(function(r){
+    (r.formatos || []).forEach(function(f){
+      var n = (f.nome || "").trim();
+      if (n && !v[n]){ v[n] = 1; out.push(n); }
+    });
+  });
+  return out;
+}
+function datalist(id, itens){
+  return '<datalist id="' + id + '">' + itens.map(function(i){
+    return '<option value="' + esc(i) + '"></option>';
+  }).join("") + '</datalist>';
+}
+
+function secIngredientes(r){
+  var lista = r.itens || [];
+  var disponiveis = state.insumos.filter(function(i){ return (i.tipo || "ingrediente") === "ingrediente"; });
+  var s = '<section class="block"><h2 class="sec">Ingredientes da massa</h2>' +
+    '<p class="sec-note">Quanto de cada produto você usou na massa inteira — antes de dividir nas formas.</p><div class="card">';
+
+  if (!disponiveis.length){
+    return s + '<div class="empty" style="padding:18px 6px"><p>Você ainda não cadastrou nenhum ingrediente na Despensa. Cadastre lá primeiro e ele aparece aqui.</p></div></div></section>';
+  }
+  if (!lista.length) s += '<p style="margin:2px 0 10px; color:var(--ink-3); font-size:14px">Nenhum ingrediente nesta receita ainda.</p>';
+
+  lista.forEach(function(it, idx){
+    var ins = insumo(it.insumoId);
+    var custo = ins ? num(it.qtd) * custoBase(ins) : 0;
+    s += '<div class="item">' +
+      '<select data-item="itens" data-idx="' + idx + '" data-k="insumoId">' + opcoes(disponiveis, it.insumoId) + '</select>' +
+      '<div class="qtd-wrap"><input class="num" inputmode="decimal" type="text" data-item="itens" data-idx="' + idx + '" data-k="qtd" value="' +
+        esc(br(it.qtd)) + '" placeholder="0"><span class="un">' + (ins ? baseDe(ins) : "g") + '</span></div>' +
+      '<button class="x" data-act="item-remover" data-idx="' + idx + '" aria-label="Remover ingrediente">×</button>' +
+      '<div class="sub"><span>' + money(custo) + ' na massa</span>' + campoLote("itens", idx, it.lote) + '</div></div>';
+  });
+  s += '<div style="margin-top:12px"><button class="btn ghost" data-act="item-add">+ Adicionar ingrediente</button></div>';
+  return s + '</div></section>';
+}
+function textoEmb(it, ins, f){
+  var por = num(it.qtd) * custoBase(ins);
+  var n = Math.max(0, Math.round(num(f.qtd)));
+  if (!n || !num(it.qtd)) return money(por) + " por sabonete";
+  var b = baseDe(ins);
+  return dec(num(it.qtd), 2) + " " + b + " × " + n + (n === 1 ? " sabonete" : " sabonetes") +
+         " = " + dec(num(it.qtd) * n, 2) + " " + b + " · " + money(por * n) + " no lote";
+}
+function campoLote(campo, idx, valor){
+  return '<label class="lote">lote<input type="text" data-item="' + campo + '" data-idx="' + idx +
+    '" data-k="lote" value="' + esc(valor || "") + '" placeholder="—" aria-label="Lote usado"></label>';
+}
+function campoLoteEmb(f, j, valor){
+  return '<label class="lote">lote<input type="text" data-emb="' + f + '" data-idx="' + j +
+    '" data-k="lote" value="' + esc(valor || "") + '" placeholder="—" aria-label="Lote usado"></label>';
+}
+function dataBR(iso){
+  if (!iso) return "";
+  var p = String(iso).split("-");
+  return p.length === 3 ? p[2] + "/" + p[1] + "/" + p[0] : iso;
+}
+function hoje(){
+  var d = new Date();
+  return d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+}
+function codigoSugerido(r){
+  var d = (r && r.data) || hoje();
+  var p = d.split("-");
+  return p.length === 3 ? "L" + p[0].slice(2) + p[1] + p[2] : "L" + hoje().replace(/-/g,"").slice(2);
+}
+function opcoes(lista, sel){
+  return ordenaInsumos(lista, "nome").map(function(i){
+    return '<option value="' + i.id + '"' + (i.id === sel ? " selected" : "") + '>' + esc(i.nome || "Sem nome") + '</option>';
+  }).join("");
+}
+
+function secFormatos(r, k){
+  var embDisp = state.insumos.filter(function(i){ return i.tipo === "embalagem"; });
+  var s = '<section class="block"><h2 class="sec">Formatos que saíram</h2>' +
+    '<p class="sec-note">A mesma massa vira sabonetes de tamanhos diferentes. Diga o peso e quantos saíram de cada forma — o custo da massa se reparte pelo peso, então o sabonete maior custa mais.</p>' +
+    '<div id="formatos">';
+
+  (r.formatos || []).forEach(function(f, i){
+    var c = k.formatos[i] || {custoUn:0, sugerido:0, preco:0, lucroUn:0, emb:0, pesoLote:0};
+    s += '<div class="fmt" data-fmt="' + i + '"><div class="fmt-top">' +
+      '<div class="fmt-nome">' +
+        '<input type="text" data-f="' + i + '" data-k="nome" value="' + esc(f.nome || "") + '" placeholder="Quadrado" list="formatos-nomes">' +
+        '<button class="x" data-act="fmt-remover" data-idx="' + i + '" aria-label="Remover formato">×</button>' +
+      '</div>' +
+      '<div class="grid2">' +
+        '<div><label>Peso de cada (g)</label><input class="num" inputmode="decimal" type="text" data-f="' + i + '" data-k="peso" value="' + esc(br(f.peso)) + '" placeholder="90"></div>' +
+        '<div><label>Quantos saíram</label><input class="num" inputmode="numeric" type="text" data-f="' + i + '" data-k="qtd" value="' + esc(br(f.qtd)) + '" placeholder="12"></div>' +
+      '</div></div>';
+
+    s += '<div class="fmt-emb"><span class="eyebrow">Embalagem de cada ' + esc((f.nome || "sabonete").toLowerCase()) + '</span>';
+    if (!embDisp.length){
+      s += '<p style="margin:8px 0 0; font-size:13px; color:var(--ink-3)">Cadastre itens de embalagem na Despensa para usar aqui.</p>';
+    } else {
+      (f.embalagem || []).forEach(function(it, j){
+        var ins = insumo(it.insumoId);
+        var custo = ins ? num(it.qtd) * custoBase(ins) : 0;
+        s += '<div class="item">' +
+          '<select data-emb="' + i + '" data-idx="' + j + '" data-k="insumoId">' + opcoes(embDisp, it.insumoId) + '</select>' +
+          '<div class="qtd-wrap"><input class="num" inputmode="decimal" type="text" data-emb="' + i + '" data-idx="' + j + '" data-k="qtd" value="' +
+            esc(br(it.qtd)) + '" placeholder="1"><span class="un">' + (ins ? baseDe(ins) : "un") + '</span></div>' +
+          '<button class="x" data-act="emb-remover" data-fmt="' + i + '" data-idx="' + j + '" aria-label="Remover embalagem">×</button>' +
+          '<div class="sub"><span>' + textoEmb(it, ins, f) + '</span>' + campoLoteEmb(i, j, it.lote) + '</div></div>';
+      });
+      s += '<div style="margin-top:10px"><button class="btn ghost" data-act="emb-add" data-fmt="' + i + '">+ Adicionar embalagem</button></div>';
+    }
+    s += '</div>';
+
+    s += '<div class="fmt-foot">' +
+      '<div><div class="kk">custa cada</div><div class="vv">' + money(c.custoUn) + '</div></div>' +
+      '<div class="mid"><div class="kk">preço</div><div class="vv" style="color:var(--ouro)">' + money(c.preco) + '</div></div>' +
+      '<div class="end"><div class="kk">lucro cada</div><div class="vv" style="color:' + (c.lucroUn >= 0 ? "var(--good)" : "var(--bad)") + '">' + money(c.lucroUn) + '</div></div>' +
+      '</div></div>';
+  });
+
+  s += '</div>' + datalist("formatos-nomes", nomesFormatos());
+  s += '<div style="margin-top:12px"><button class="btn ghost" data-act="fmt-add">+ Adicionar formato</button></div>';
+  if (!k.porPeso && k.unidades > 0){
+    s += '<div class="hint warn">Sem o peso de cada formato, o custo da massa está sendo dividido em partes iguais. Preencha os pesos para a conta ficar certa.</div>';
+  }
+  return s + '</section>';
+}
+
+function secPreco(r, k){
+  var markup = r.precoModo === "markup";
+  var pv = num(r.precoValor);
+  var exemplo = markup ? 10 * (1 + pv / 100) : 10 * pv;
+
+  var s = '<section class="block"><h2 class="sec">Quanto eu quero ganhar</h2>' +
+    '<p class="sec-note">Escolha a regra uma vez e ela vale para todos os formatos. Se quiser arredondar o preço de um deles, digite por cima.</p>' +
+    '<div class="card stack">' +
+    '<div class="seg">' +
+      '<button data-seg="precoModo" data-val="markup" aria-pressed="' + markup + '">% sobre o custo</button>' +
+      '<button data-seg="precoModo" data-val="multiplicador" aria-pressed="' + (!markup) + '">multiplicar o custo</button>' +
+    '</div>' +
+    '<div><label for="r-pv">' + (markup ? "Ganhar quanto % sobre o custo" : "Multiplicar o custo por") + '</label>' +
+      '<input id="r-pv" class="num" inputmode="decimal" type="text" data-r="precoValor" value="' + esc(br(r.precoValor)) +
+      '" placeholder="' + (markup ? "50" : "2") + '"></div>' +
+    '<p class="pv-exemplo" id="pv-exemplo">Um sabonete que custa <b>R$ 10,00</b> sai por <b>' + money(exemplo) + '</b>.</p>';
+
+  if (!k.formatos.length){
+    s += '<p class="sec-note" style="margin:0">Cadastre um formato acima para ver os preços aqui.</p>';
+  } else {
+    s += '<div class="precos">';
+    k.formatos.forEach(function(c, i){
+      s += '<div class="pv-row" data-pv="' + i + '">' +
+        '<div><span class="nm">' + esc(c.nome || "Sem nome") + '</span>' +
+          '<span class="ct">custa ' + money(c.custoUn) + ' cada</span></div>' +
+        '<div><input class="num" inputmode="decimal" type="text" data-p="' + i + '" value="' + esc(br(c.ref.precoPraticado)) +
+          '" aria-label="Preço de ' + esc(c.nome || "formato") + '" placeholder="' + (c.sugerido > 0 ? dec2(c.sugerido) : "0,00") + '"></div>' +
+        '<div class="out">' + saidaPreco(c) + '</div>' +
+      '</div>';
+    });
+    s += '</div>';
+  }
+  return s + '</div></section>';
+}
+function saidaPreco(c){
+  var t = '<div class="o1">vende a <b>' + money(c.preco) + '</b> · lucro <b class="lucro' +
+    (c.lucroUn < 0 ? " neg" : "") + '">' + money(c.lucroUn) + '</b></div>' +
+    '<div class="o2"><span>' + dec(c.margem, 0) + '% do preço é seu</span>';
+  if (c.praticado > 0) t += '<button class="tiny" data-act="usar-sugerido" data-idx="' + c.i + '">usar ' + money(c.sugerido) + '</button>';
+  return t + '</div>';
+}
+
+function resumoHTML(r){
+  var k = calcular(r);
+  var s = '<div class="lines">';
+  s += linha("Ingredientes da massa", money(k.ingredientes));
+  s += linha("Seu trabalho", money(k.trabalho));
+  s += linha("Embalagem (todos os formatos)", money(k.embalagem));
+  s += '<div class="line total"><span class="k">Custo do lote</span><span class="v">' + money(k.custoLote) + '</span></div>';
+  s += '</div>';
+
+  s += '<div class="lines" style="margin-top:14px">';
+  s += linha("Sabonetes produzidos", dec(k.unidades, 0));
+  s += linha("Peso total produzido", dec(k.pesoTotal, 0) + " g");
+  if (k.porPeso) s += linha("Custo de cada grama de massa", moneyG(k.porGrama));
+  s += '</div>';
+
+  if (k.formatos.length){
+    s += '<div class="scroll-x" style="margin-top:18px"><table class="tabela"><thead><tr>' +
+      '<th>Formato</th><th>Peso</th><th>Qtd</th><th>Custa</th><th>Preço</th><th>Lucro</th><th>Margem</th>' +
+      '</tr></thead><tbody>';
+    k.formatos.forEach(function(f){
+      s += '<tr><td>' + esc(f.nome || "Sem nome") + '</td>' +
+        '<td>' + dec(f.peso, 0) + ' g</td>' +
+        '<td>' + f.qtd + '</td>' +
+        '<td>' + money(f.custoUn) + '</td>' +
+        '<td>' + money(f.preco) + '</td>' +
+        '<td style="color:' + (f.lucroUn >= 0 ? "var(--good)" : "var(--bad)") + '">' + money(f.lucroUn) + '</td>' +
+        '<td>' + dec(f.margem, 0) + '%</td></tr>';
+    });
+    s += '</tbody></table></div>';
+  }
+
+  if (k.unidades){
+    s += '<div class="lines" style="margin-top:16px">';
+    s += linha("Vendendo o lote inteiro", money(k.faturamento));
+    s += '<div class="line total"><span class="k">Lucro do lote</span><span class="v" style="color:' +
+      (k.lucroLote >= 0 ? "var(--good)" : "var(--bad)") + '">' + money(k.lucroLote) + '</span></div>';
+    s += '</div>';
+  }
+
+  s += '<div style="margin-top:14px; display:flex; gap:8px; flex-wrap:wrap">' +
+    '<span class="pill ' + (k.margemLote >= 0 ? "good" : "bad") + '">margem do lote ' + dec(k.margemLote, 1) + '%</span></div>';
+
+  if (!k.unidades){
+    s += '<div class="hint warn">Cadastre pelo menos um formato com quantidade para a conta fechar.</div>';
+  }
+  return s;
+  function linha(a, b){ return '<div class="line"><span class="k">' + a + '</span><span class="v">' + b + '</span></div>'; }
+}
+
+function atualizarBarra(){
+  var bar = document.getElementById("bar");
+  if (view === "kit"){
+    var kit = kitAtual();
+    if (!kit){ bar.hidden = true; return; }
+    var ck = calcularKit(kit);
+    bar.hidden = false;
+    document.getElementById("barIn").innerHTML =
+      '<div class="stat"><div class="kk">custo do kit</div><div class="vv">' + money(ck.custo) + '</div></div>' +
+      '<div class="stat mid"><div class="kk">preço</div><div class="vv accent">' + money(ck.preco) + '</div></div>' +
+      '<div class="stat end"><div class="kk">lucro</div><div class="vv ' +
+        (ck.lucro >= 0 ? "good" : "bad") + '">' + money(ck.lucro) + '</div></div>';
+    return;
+  }
+  if (view !== "editor"){ bar.hidden = true; return; }
+  var r = receita();
+  if (!r){ bar.hidden = true; return; }
+  var k = calcular(r);
+  bar.hidden = false;
+  document.getElementById("barIn").innerHTML =
+    '<div class="stat"><div class="kk">custo do lote</div><div class="vv">' + money(k.custoLote) + '</div></div>' +
+    '<div class="stat mid"><div class="kk">sabonetes</div><div class="vv">' + k.unidades + '</div></div>' +
+    '<div class="stat end"><div class="kk">' + (k.unidades ? "lucro do lote" : "falta o rendimento") + '</div><div class="vv ' +
+      (k.unidades ? (k.lucroLote >= 0 ? "good" : "bad") : "") + '">' + (k.unidades ? money(k.lucroLote) : "—") + '</div></div>';
+}
+function atualizarResumo(){
+  var r = receita();
+  var el = document.getElementById("resumo");
+  if (r && el) el.innerHTML = resumoHTML(r);
+  atualizarBarra();
+}
+function atualizarFormatos(){
+  var r = receita(); if (!r) return;
+  var k = calcular(r);
+  (r.formatos || []).forEach(function(f, i){
+    var c = k.formatos[i]; if (!c) return;
+    var box = document.querySelector('[data-fmt="' + i + '"]'); if (!box) return;
+    var vv = box.querySelectorAll(".fmt-foot .vv");
+    if (vv.length === 3){
+      vv[0].textContent = money(c.custoUn);
+      vv[1].textContent = money(c.preco);
+      vv[2].textContent = money(c.lucroUn);
+      vv[2].style.color = c.lucroUn >= 0 ? "var(--good)" : "var(--bad)";
+    }
+    (f.embalagem || []).forEach(function(it, j){
+      var el = box.querySelector('[data-emb="' + i + '"][data-idx="' + j + '"][data-k="qtd"]');
+      if (!el) return;
+      var linha = el.closest(".item"); if (!linha) return;
+      var sub = linha.querySelector(".sub"); if (!sub) return;
+      var ins = insumo(it.insumoId);
+      var alvoSpan = sub.querySelector("span");
+      if (alvoSpan && ins) alvoSpan.textContent = textoEmb(it, ins, f);
+    });
+  });
+  atualizarPrecos();
+  atualizarResumo();
+}
+function atualizarPrecos(){
+  var r = receita(); if (!r) return;
+  var k = calcular(r);
+  var ex = document.getElementById("pv-exemplo");
+  if (ex){
+    var pv = num(r.precoValor);
+    var v = r.precoModo === "markup" ? 10 * (1 + pv / 100) : 10 * pv;
+    ex.innerHTML = 'Um sabonete que custa <b>R$ 10,00</b> sai por <b>' + money(v) + '</b>.';
+  }
+  k.formatos.forEach(function(c, i){
+    var row = document.querySelector('[data-pv="' + i + '"]'); if (!row) return;
+    var nm = row.querySelector(".nm"), ct = row.querySelector(".ct"), out = row.querySelector(".out");
+    if (nm) nm.textContent = c.nome || "Sem nome";
+    if (ct) ct.textContent = "custa " + money(c.custoUn) + " cada";
+    if (out) out.innerHTML = saidaPreco(c);
+    var inp = row.querySelector('[data-p="' + i + '"]');
+    if (inp && !inp.value) inp.placeholder = c.sugerido > 0 ? dec2(c.sugerido) : "0,00";
+  });
+}
+function atualizarIngredientes(){
+  var r = receita(); if (!r) return;
+  (r.itens || []).forEach(function(it, idx){
+    var el = document.querySelector('[data-item="itens"][data-idx="' + idx + '"][data-k="qtd"]');
+    if (!el) return;
+    var linha = el.closest(".item"); if (!linha) return;
+    var sub = linha.querySelector(".sub"); if (!sub) return;
+    var ins = insumo(it.insumoId);
+    sub.textContent = money(ins ? num(it.qtd) * custoBase(ins) : 0) + " na massa";
+  });
+  atualizarFormatos();
+}
+
+/* ============ cópia automática num arquivo ============ */
+/* A ideia: ela escolhe UMA vez um arquivo (de preferência dentro da pasta do
+   Google Drive ou do OneDrive do computador). A partir daí toda alteração é
+   gravada lá também. Se o navegador for limpo, ou ela trocar de máquina,
+   os dados voltam abrindo esse arquivo. */
+var temArquivos = !!(window.showSaveFilePicker && window.showOpenFilePicker && window.indexedDB);
+var arq = null;              // FileSystemFileHandle
+var arqNome = "";
+var arqQuando = "";
+var arqPermitido = false;
+
+function idb(){
+  return new Promise(function(ok, erro){
+    var r = indexedDB.open("saboaria-cfg", 1);
+    r.onupgradeneeded = function(){ r.result.createObjectStore("cfg"); };
+    r.onsuccess = function(){ ok(r.result); };
+    r.onerror = function(){ erro(r.error); };
+  });
+}
+function idbGrava(chave, valor){
+  return idb().then(function(db){
+    return new Promise(function(ok, erro){
+      var t = db.transaction("cfg", "readwrite");
+      t.objectStore("cfg").put(valor, chave);
+      t.oncomplete = ok; t.onerror = function(){ erro(t.error); };
+    });
+  });
+}
+function idbLe(chave){
+  return idb().then(function(db){
+    return new Promise(function(ok, erro){
+      var t = db.transaction("cfg", "readonly");
+      var q = t.objectStore("cfg").get(chave);
+      q.onsuccess = function(){ ok(q.result); };
+      q.onerror = function(){ erro(q.error); };
+    });
+  });
+}
+function permissao(h, pedir){
+  if (!h || !h.queryPermission) return Promise.resolve(false);
+  return h.queryPermission({mode:"readwrite"}).then(function(p){
+    if (p === "granted") return true;
+    if (!pedir) return false;
+    return h.requestPermission({mode:"readwrite"}).then(function(q){ return q === "granted"; });
+  })["catch"](function(){ return false; });
+}
+function escreveArquivo(){
+  if (!arq || !arqPermitido) return Promise.resolve(false);
+  return arq.createWritable().then(function(w){
+    return w.write(JSON.stringify(state, null, 2)).then(function(){ return w.close(); });
+  }).then(function(){
+    arqQuando = new Date().toLocaleTimeString("pt-BR", {hour:"2-digit", minute:"2-digit"});
+    if (view === "backup") render();
+    return true;
+  })["catch"](function(){
+    arqPermitido = false;
+    if (view === "backup") render();
+    return false;
+  });
+}
+function adotaArquivo(h){
+  arq = h; arqNome = h.name;
+  return idbGrava("arquivo", h).then(function(){ return permissao(h, true); })
+    .then(function(ok){ arqPermitido = ok; return escreveArquivo(); })
+    .then(function(){ render(); });
+}
+function escolherArquivo(){
+  return window.showSaveFilePicker({
+    suggestedName: "saboaria-maren.json",
+    types: [{ description: "Backup da Saboaria", accept: {"application/json": [".json"]} }]
+  }).then(adotaArquivo)["catch"](function(){});
+}
+function aplicaDados(novo){
+  if (!novo || !Array.isArray(novo.insumos) || !Array.isArray(novo.receitas)) throw new Error("formato");
+  state = migrar(novo);
+  agendarSave();
+}
+function abrirArquivo(){
+  return window.showOpenFilePicker({
+    types: [{ description: "Backup da Saboaria", accept: {"application/json": [".json"]} }]
+  }).then(function(hs){
+    var h = hs[0];
+    return h.getFile().then(function(f){ return f.text(); }).then(function(txt){
+      aplicaDados(JSON.parse(txt));
+      arq = h; arqNome = h.name;
+      return idbGrava("arquivo", h).then(function(){ return permissao(h, true); })
+        .then(function(ok){ arqPermitido = ok; ir("receitas"); });
+    });
+  })["catch"](function(e){ if (e && e.name !== "AbortError") avisa("Não consegui ler esse arquivo."); });
+}
+function retomarArquivo(){
+  if (!temArquivos) return Promise.resolve();
+  return idbLe("arquivo").then(function(h){
+    if (!h) return;
+    arq = h; arqNome = h.name;
+    return permissao(h, false).then(function(ok){ arqPermitido = ok; });
+  })["catch"](function(){});
+}
+function baixarCopia(){
+  try {
+    var d = new Date();
+    var nome = "saboaria-" + d.getFullYear() + "-" +
+      String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0") + ".json";
+    var url = URL.createObjectURL(new Blob([JSON.stringify(state, null, 2)], {type:"application/json"}));
+    var a = document.createElement("a");
+    a.href = url; a.download = nome; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 2000);
+  } catch(e){ avisa("Este navegador bloqueou o download. Use o texto no fim da página."); }
+}
+var recado = "";
+function avisa(t){ recado = t; render(); setTimeout(function(){ recado = ""; if (view==="backup") render(); }, 5000); }
+
+/* ============ estoque ============ */
+/* Regra: a receita só baixa do estoque quando ela marca "já produzi".
+   O que foi baixado fica gravado em r.consumido, então editar, desmarcar
+   ou excluir a receita sempre devolve exatamente o que tinha saído. */
+function consumoDe(r){
+  var m = {};
+  (r.itens || []).forEach(function(it){
+    if (!it.insumoId) return;
+    m[it.insumoId] = (m[it.insumoId] || 0) + num(it.qtd);
+  });
+  (r.formatos || []).forEach(function(f){
+    var q = Math.max(0, Math.round(num(f.qtd)));
+    (f.embalagem || []).forEach(function(it){
+      if (!it.insumoId) return;
+      m[it.insumoId] = (m[it.insumoId] || 0) + num(it.qtd) * q;
+    });
+  });
+  return m;
+}
+function sincronizaEstoque(r){
+  var alvo = r.produzida ? consumoDe(r) : {};
+  var antes = r.consumido || {};
+  var ids = {};
+  Object.keys(alvo).forEach(function(k){ ids[k] = 1; });
+  Object.keys(antes).forEach(function(k){ ids[k] = 1; });
+  Object.keys(ids).forEach(function(id){
+    var ins = insumo(id); if (!ins) return;
+    var delta = (alvo[id] || 0) - (antes[id] || 0);
+    if (delta) ins.estoque = Math.round((num(ins.estoque) - delta) * 1e6) / 1e6;
+  });
+  r.consumido = alvo;
+}
+function sincronizaTudo(){
+  state.receitas.forEach(function(r){
+    if (r.produzida || (r.consumido && Object.keys(r.consumido).length)) sincronizaEstoque(r);
+  });
+}
+function porEmbalagem(ins){                 // quanto vale uma embalagem, em unidade base
+  var u = UNIDADES[ins.unidade] || UNIDADES.g;
+  return num(ins.qtd) * u.f;
+}
+function podeFazer(r){
+  var c = consumoDe(r);
+  var ids = Object.keys(c).filter(function(k){ return c[k] > 0 && insumo(k); });
+  if (!ids.length) return null;
+  var vezes = Infinity, falta = [];
+  ids.forEach(function(id){
+    var ins = insumo(id), precisa = c[id], tem = num(ins.estoque);
+    var v = Math.floor(tem / precisa);
+    if (v < vezes) vezes = v;
+    if (tem < precisa) falta.push({ ins: ins, quanto: precisa - tem });
+  });
+  return { vezes: isFinite(vezes) ? Math.max(0, vezes) : 0, falta: falta };
+}
+function qtdTexto(v, base){
+  if (base === "un") return dec(v, 0) + " un";
+  if (Math.abs(v) >= 1000) return dec(v / 1000, 2) + " " + (base === "g" ? "kg" : "L");
+  return dec(v, Math.abs(v) < 100 ? 1 : 0) + " " + base;   // sobras pequenas pedem a casa decimal
+}
+
+/* ============ lote proporcional (regra de três) ============ */
+/* A sobra manda: o ingrediente que rende a menor fração da receita
+   determina o tamanho da fornada, e todo o resto é multiplicado
+   pelo mesmo fator. */
+var escala = null;
+var escalaRec = null;
+
+function ingredientesDaMassa(r){
+  return (r.itens || []).filter(function(it){ return it.insumoId && num(it.qtd) > 0 && insumo(it.insumoId); });
+}
+function pesoDaMassa(r, fator){
+  var t = 0;
+  ingredientesDaMassa(r).forEach(function(it){
+    var b = baseDe(insumo(it.insumoId));
+    if (b === "g" || b === "ml") t += num(it.qtd) * (fator == null ? 1 : fator);
+  });
+  return t;
+}
+function abreEscala(r){
+  var sobras = {};
+  ingredientesDaMassa(r).forEach(function(it){
+    var ins = insumo(it.insumoId);
+    sobras[it.insumoId] = br(Math.round(num(ins.estoque) * 1000) / 1000);   // parte do estoque atual
+  });
+  escala = { modo:"sobra", sobras:sobras, pct:"", peso:"", trabalho:"igual" };
+}
+function fatorDaEscala(r){
+  if (!escala) return { fator:0, limita:null };
+  if (escala.modo === "pct"){
+    return { fator: Math.max(0, num(escala.pct)) / 100, limita:null };
+  }
+  if (escala.modo === "peso"){
+    var cheio = pesoDaMassa(r, 1);
+    return { fator: cheio > 0 ? Math.max(0, num(escala.peso)) / cheio : 0, limita:null };
+  }
+  var menor = Infinity, quem = null;
+  ingredientesDaMassa(r).forEach(function(it){
+    var pede = num(it.qtd);
+    var f = pede > 0 ? num(escala.sobras[it.insumoId]) / pede : Infinity;
+    if (f < menor){ menor = f; quem = it.insumoId; }
+  });
+  return { fator: isFinite(menor) ? Math.max(0, menor) : 0, limita: quem };
+}
+function receitaEscalada(r, fator){
+  var nova = JSON.parse(JSON.stringify(r));
+  nova.id = uid();
+  nova.data = hoje();
+  nova.codigo = codigoSugerido(nova);
+  nova.produzida = false;
+  nova.consumido = {};
+  nova.nome = (r.nome || "Receita") + " · " + dec(fator * 100, 0) + "%";
+  nova.itens = (nova.itens || []).map(function(it){
+    var ins = insumo(it.insumoId);
+    return { insumoId: it.insumoId,
+             qtd: br(Math.round(num(it.qtd) * fator * 100) / 100),
+             lote: ins ? (ins.lote || "") : "" };          // lote do pacote aberto hoje
+  });
+  nova.formatos = (nova.formatos || []).map(function(f){
+    return { id: uid(), nome: f.nome, peso: f.peso,
+             qtd: String(Math.max(0, Math.floor(num(f.qtd) * fator))),
+             precoPraticado: "",
+             embalagem: (f.embalagem || []).map(function(e){
+               var ie = insumo(e.insumoId);
+               return { insumoId: e.insumoId, qtd: e.qtd, lote: ie ? (ie.lote || "") : "" };
+             }) };
+  });
+  if (escala && escala.trabalho === "proporcional"){
+    nova.trabalhoValor = br(Math.round(num(r.trabalhoValor) * fator * 100) / 100);
+  }
+  return nova;
+}
+
+/* ---- receita base montada na hora (a que ela viu por aí) ---- */
+var novaBase = null;
+
+function abreNovaBase(){
+  novaBase = { nome:"", colecao:"", itens:[], peso:"", qtd:"" };
+  var pri = state.insumos.filter(function(i){ return (i.tipo || "ingrediente") === "ingrediente"; })[0];
+  if (pri) novaBase.itens.push({ insumoId: pri.id, qtd: "" });
+}
+function formNovaBase(){
+  var disp = insumosDe("ingrediente", "despensa");
+  var s = '<section class="block"><h2 class="sec">Receita base</h2>' +
+    '<p class="sec-note">Coloque as medidas originais da receita, do jeito que ela está escrita. Depois o app reduz tudo para o que você tem.</p>' +
+    '<div class="card stack">';
+
+  if (!disp.length){
+    return s + '<p class="sec-note" style="margin:0">Antes é preciso ter os produtos na <b>Despensa</b> — é de lá que vêm os preços. Cadastre os ingredientes desta receita e volte aqui.</p>' +
+      '<div class="row-actions"><button class="btn" data-act="nb-cancelar">Voltar</button></div></div></section>';
+  }
+
+  s += '<div><label for="nb-nome">Nome da receita</label>' +
+    '<input id="nb-nome" type="text" data-nb="nome" value="' + esc(novaBase.nome) + '" placeholder="Sabonete de aveia e mel"></div>' +
+    '<div><label for="nb-col">Coleção</label>' +
+    '<input id="nb-col" type="text" data-nb="colecao" value="' + esc(novaBase.colecao) + '" placeholder="opcional" list="colecoes">' + datalist("colecoes", colecoes()) + '</div>';
+
+  s += '<div><label>Ingredientes, na medida original</label><div>';
+  novaBase.itens.forEach(function(it, i){
+    var ins = insumo(it.insumoId);
+    s += '<div class="item">' +
+      '<select data-nbi="' + i + '" data-k="insumoId">' + opcoes(disp, it.insumoId) + '</select>' +
+      '<div class="qtd-wrap"><input class="num" inputmode="decimal" type="text" data-nbi="' + i + '" data-k="qtd" value="' +
+        esc(br(it.qtd)) + '" placeholder="0"><span class="un">' + (ins ? baseDe(ins) : "g") + '</span></div>' +
+      '<button class="x" data-act="nb-remover" data-idx="' + i + '" aria-label="Remover">×</button>' +
+      '</div>';
+  });
+  s += '</div><div style="margin-top:10px"><button class="btn ghost" data-act="nb-add">+ Adicionar ingrediente</button></div></div>';
+
+  s += '<div><label>Rendimento da receita original</label><div class="grid2">' +
+      '<div><label for="nb-peso" style="font-weight:400">Peso de cada (g)</label>' +
+        '<input id="nb-peso" class="num" inputmode="decimal" type="text" data-nb="peso" value="' + esc(br(novaBase.peso)) + '" placeholder="90"></div>' +
+      '<div><label for="nb-qtd" style="font-weight:400">Quantos saem</label>' +
+        '<input id="nb-qtd" class="num" inputmode="numeric" type="text" data-nb="qtd" value="' + esc(br(novaBase.qtd)) + '" placeholder="12"></div>' +
+    '</div><p class="sec-note" style="margin:8px 0 0">Se a receita não disser, pode deixar em branco — o cálculo dos ingredientes funciona do mesmo jeito.</p></div>';
+
+  s += '<div class="row-actions">' +
+    '<button class="btn primary" data-act="nb-criar">Criar e usar como padrão</button>' +
+    '<button class="btn" data-act="nb-cancelar">Cancelar</button>' +
+    '</div></div></section>';
+  return s;
+}
+
+function telaProporcional(){
+  var h = '<section class="block"><h2 class="sec">Lote proporcional</h2>' +
+    '<p class="sec-note">Para aproveitar o que sobrou na bancada. Escolha a receita que serve de padrão, diga quanto você tem de cada coisa, e o app monta uma fornada menor na mesma proporção.</p></section>';
+
+  if (!state.receitas.length){
+    if (novaBase) return h + formNovaBase();
+    var temIng = false;
+    state.insumos.forEach(function(i){ if ((i.tipo || "ingrediente") === "ingrediente") temIng = true; });
+    if (!temIng){
+      return h + '<section class="block"><div class="card empty"><h3>Comece pela Despensa</h3>' +
+        '<p>Cadastre primeiro os produtos que você compra — base, óleo, essência, corante. Depois volte aqui para montar a receita que serve de padrão.</p></div></section>';
+    }
+    return h + '<section class="block"><div class="card empty"><h3>Nenhuma receita para usar de padrão</h3>' +
+      '<p>Monte aqui mesmo a receita que serve de matriz — uma sua ou uma que você viu na internet. Depois é só dizer o que sobrou na bancada.</p>' +
+      '<div class="row-actions" style="justify-content:center"><button class="btn primary" data-act="nb-abrir">Criar uma receita base</button></div></div></section>';
+  }
+
+  var r = null;
+  state.receitas.forEach(function(x){ if (x.id === escalaRec) r = x; });
+
+  var grupos = {}, ordem = [];
+  state.receitas.forEach(function(x){
+    var c = (x.colecao || "").trim() || "Sem coleção";
+    if (!grupos[c]){ grupos[c] = []; ordem.push(c); }
+    grupos[c].push(x);
+  });
+  ordem.sort(function(a, b){
+    if (a === "Sem coleção") return 1;
+    if (b === "Sem coleção") return -1;
+    return a.localeCompare(b, "pt-BR");
+  });
+  var opt = '<option value="">Escolha uma receita…</option>' +
+            '<option value="__nova__">+ Criar uma receita base…</option>';
+  ordem.forEach(function(c){
+    opt += '<optgroup label="' + esc(c) + '">';
+    grupos[c].slice().sort(function(a, b){
+      return String(a.nome || "").localeCompare(String(b.nome || ""), "pt-BR");
+    }).forEach(function(x){
+      opt += '<option value="' + x.id + '"' + (r && x.id === r.id ? " selected" : "") + '>' +
+        esc(x.nome || "Receita sem nome") + '</option>';
+    });
+    opt += '</optgroup>';
+  });
+
+  h += '<section class="block"><div class="card">' +
+    '<label for="esc-receita">Receita padrão</label>' +
+    '<select id="esc-receita" data-esc-receita>' + opt.replace('value="__nova__"', 'value="__nova__"' + (novaBase ? " selected" : "")) + '</select>' +
+    (r ? '' : '<p class="sec-note" style="margin:10px 0 0">Assim que escolher, aparece aqui o que ela pede e onde você preenche o que tem.</p>') +
+    '</div></section>';
+
+  if (novaBase) return h + formNovaBase();
+  if (!r) return h;
+  if (!escala) abreEscala(r);
+  return h + painelEscala(r);
+}
+
+function painelEscala(r){
+  var lista = ingredientesDaMassa(r);
+  var e = fatorDaEscala(r);
+  var fator = e.fator;
+  var pct = fator * 100;
+
+  var s = '<section class="block"><div class="card stack">' +
+    '<div class="seg">' +
+      '<button data-seg-esc="sobra" aria-pressed="' + (escala.modo === "sobra") + '">Pela sobra</button>' +
+      '<button data-seg-esc="pct" aria-pressed="' + (escala.modo === "pct") + '">Porcentagem</button>' +
+      '<button data-seg-esc="peso" aria-pressed="' + (escala.modo === "peso") + '">Peso da massa</button>' +
+    '</div>';
+
+  if (!lista.length){
+    return s + '<p class="sec-note" style="margin:0">Esta receita ainda não tem ingredientes lançados, então não há o que reduzir. Abra ela em <b>Receitas</b> e preencha a massa primeiro.</p></div></section>';
+  }
+
+  if (escala.modo === "sobra"){
+    s += '<div>';
+    lista.forEach(function(it){
+      var ins = insumo(it.insumoId), base = baseDe(ins);
+      var pede = num(it.qtd), tem = num(escala.sobras[it.insumoId]);
+      var f = pede > 0 ? tem / pede : 0;
+      var limita = e.limita === it.insumoId;
+      s += '<div class="esc-linha' + (limita ? " limita" : "") + '">' +
+        '<div><span class="nm">' + esc(ins.nome || "Sem nome") + '</span>' +
+          '<span class="pede">a receita pede ' + qtdTexto(pede, base) + '</span></div>' +
+        '<div class="campo"><input class="num" inputmode="decimal" type="text" data-sobra="' + it.insumoId +
+          '" value="' + esc(escala.sobras[it.insumoId] || "") + '" placeholder="0" aria-label="Quanto você tem de ' + esc(ins.nome) + '">' +
+          '<span class="un">' + base + '</span></div>' +
+        '<div class="frac">' + dec(f * 100, 0) + '%</div>' +
+        (limita ? '<div class="esc-aviso">este acaba primeiro — é ele que manda</div>' : '') +
+        '</div>';
+    });
+    s += '</div><p class="sec-note" style="margin:0">Os valores vêm do seu estoque. Ajuste para o que realmente sobrou no frasco.</p>';
+  } else if (escala.modo === "pct"){
+    s += '<div><label for="esc-pct">Quantos % da receita padrão</label>' +
+      '<input id="esc-pct" class="num" inputmode="decimal" type="text" data-esc="pct" value="' + esc(escala.pct) + '" placeholder="30"></div>';
+  } else {
+    s += '<div><label for="esc-peso">Peso da massa que você quer (g)</label>' +
+      '<input id="esc-peso" class="num" inputmode="decimal" type="text" data-esc="peso" value="' + esc(escala.peso) + '" placeholder="' + dec(pesoDaMassa(r, 1), 0) + '"></div>' +
+      '<p class="sec-note" style="margin:0">A receita cheia dá ' + dec(pesoDaMassa(r, 1), 0) + ' g de massa.</p>';
+  }
+
+  s += '<div class="esc-fator"><span class="big">' + dec(pct, pct < 10 ? 1 : 0) + '%</span>' +
+    '<span class="txt">da receita padrão' + (e.limita ? ' — limitado por ' + esc((insumo(e.limita) || {}).nome || "") : '') + '</span></div>';
+
+  if (fator > 0){
+    var nova = receitaEscalada(r, fator);
+    var k = calcular(nova);
+    s += '<div class="esc-prev">';
+    s += '<div class="tt">vai usar</div>';
+    nova.itens.forEach(function(it){
+      var ins = insumo(it.insumoId);
+      s += '<div class="par"><span>' + esc(ins ? ins.nome : "") + '</span><b>' + qtdTexto(num(it.qtd), baseDe(ins)) + '</b></div>';
+    });
+    s += '<div class="tt">vai render</div>';
+    var algum = false;
+    nova.formatos.forEach(function(f){
+      var q = num(f.qtd);
+      if (q > 0) algum = true;
+      s += '<div class="par"><span>' + esc(f.nome || "Formato") + ' · ' + dec(num(f.peso), 0) + ' g</span><b>' +
+        dec(q, 0) + (q === 1 ? " sabonete" : " sabonetes") + '</b></div>';
+    });
+    if (!algum) s += '<div class="hint warn">A sobra não dá para nenhum sabonete inteiro nos formatos desta receita. Aumente a sobra ou use um formato menor.</div>';
+    s += '<div class="par" style="border-top:1px solid var(--line); margin-top:6px; padding-top:10px"><span>Custo deste lote</span><b>' + money(k.custoLote) + '</b></div>';
+    if (k.formatos.length && k.unidades > 0){
+      s += '<div class="par"><span>Custo de cada sabonete</span><b>' +
+        k.formatos.filter(function(x){ return x.qtd > 0; }).map(function(x){ return money(x.custoUn); }).join(" · ") + '</b></div>';
+    }
+    s += '</div>';
+
+    s += '<div><label>Seu trabalho neste lote menor</label><div class="seg">' +
+      '<button data-seg-trab="igual" aria-pressed="' + (escala.trabalho !== "proporcional") + '">o mesmo do lote cheio</button>' +
+      '<button data-seg-trab="proporcional" aria-pressed="' + (escala.trabalho === "proporcional") + '">proporcional</button>' +
+      '</div>' +
+      '<p class="sec-note" style="margin:8px 0 0">Preparar, derreter e desenformar leva quase o mesmo tempo num lote pequeno. Mantendo o valor cheio, o preço do sabonete pequeno sai mais honesto.</p></div>';
+
+    s += '<button class="btn primary grande" data-act="esc-criar">Criar esta produção</button>';
+  } else {
+    s += '<div class="hint">' + (escala.modo === "sobra"
+      ? 'Preencha ao lado quanto você tem de cada ingrediente. O menor deles define o tamanho da fornada.'
+      : 'Informe um valor acima para o app montar a fornada.') + '</div>';
+  }
+
+  return s + '</div></section>';
+}
+
+/* ============ tela: em estoque ============ */
+function telaEstoque(){
+  if (!state.insumos.length){
+    return '<section class="block"><h2 class="sec">Em estoque</h2>' +
+      '<div class="card empty"><h3>Nada para contar ainda</h3>' +
+      '<p>Cadastre seus produtos na <b>Despensa</b> primeiro. Depois volte aqui para dizer quanto você tem de cada um.</p></div></section>';
+  }
+
+  var valor = 0, acabando = 0;
+  state.insumos.forEach(function(i){
+    var e = num(i.estoque);
+    valor += e * custoBase(i);
+    if (e <= 0 || e < porEmbalagem(i)) acabando++;
+  });
+
+  var h = '<section class="block"><h2 class="sec">Em estoque</h2>' +
+    '<p class="sec-note">Quanto você ainda tem de cada produto. As receitas marcadas como produzidas descontam daqui sozinhas.</p>' +
+    (state.insumos.length > 1 ? seletorOrdem("estoque", ORDENS_ESTOQUE) : '') +
+    '<div class="card"><div class="bar-in" style="display:grid; grid-template-columns:1fr 1fr; gap:12px">' +
+      '<div class="stat"><div class="kk">valor parado</div><div class="vv">' + money(valor) + '</div></div>' +
+      '<div class="stat end"><div class="kk">produtos acabando</div><div class="vv" style="color:' +
+        (acabando ? "var(--bad)" : "var(--good)") + '">' + acabando + '</div></div>' +
+    '</div></div></section>';
+
+  var negativos = 0;
+  state.insumos.forEach(function(i){ if (num(i.estoque) < 0) negativos++; });
+  if (negativos){
+    h += '<section class="block"><div class="hint">Alguns saldos estão negativos: há produções marcadas como feitas que gastaram mais do que o app sabia que existia. Lance aí embaixo o que você realmente tem em casa e os números se acertam.</div></section>';
+  }
+
+  h += bloco("Ingredientes", "ingrediente");
+  h += bloco("Embalagem e rótulo", "embalagem");
+  h += secPodeFazer();
+  return h;
+
+  function bloco(titulo, tipo){
+    var lista = insumosDe(tipo, "estoque");
+    if (!lista.length) return "";
+    var s = '<section class="block"><h2 class="sec">' + titulo + '</h2><div class="card">';
+    lista.forEach(function(ins){
+      var base = baseDe(ins), e = num(ins.estoque), emb = porEmbalagem(ins);
+      var estado = e < 0 ? '<span class="pill bad">falta registrar entrada</span>'
+        : (e === 0 ? '<span class="pill bad">acabou</span>'
+        : (emb > 0 && e < emb ? '<span class="pill" style="background:var(--ouro-soft); color:var(--ouro)">menos de uma embalagem</span>'
+        : '<span class="pill good">ok</span>'));
+      var quantas = emb > 0 ? dec(e / emb, 1) + (Math.abs(e/emb) === 1 ? " embalagem" : " embalagens") : "";
+      s += '<div class="est">' +
+        '<div><div class="nm">' + esc(ins.nome || "Sem nome") + '</div>' +
+          '<div class="dt">' + qtdTexto(e, base) + (quantas ? ' · ' + quantas : '') + '</div></div>' +
+        '<div class="val">' + money(e * custoBase(ins)) + '<br><span style="font-size:11px">parado</span></div>' +
+        '<div class="acoes">' +
+          '<div class="campo"><input class="num" inputmode="decimal" type="text" data-est="' + ins.id +
+            '" value="' + (e ? esc(br(Math.round(e * 1000) / 1000)) : "") + '" placeholder="0" aria-label="Estoque de ' + esc(ins.nome) + '">' +
+            '<span class="un">' + base + '</span></div>' +
+          '<button class="tiny" data-act="est-mais" data-id="' + ins.id + '">+ 1 embalagem (' +
+            dec(num(ins.qtd), 3) + ' ' + (UNIDADES[ins.unidade] || UNIDADES.g).rot + ')</button>' +
+          estado +
+        '</div></div>';
+    });
+    return s + '</div></section>';
+  }
+
+  function secPodeFazer(){
+    if (!state.receitas.length) return "";
+    var contou = false;
+    state.insumos.forEach(function(i){ if (num(i.estoque) > 0) contou = true; });
+    if (!contou){
+      return '<section class="block"><h2 class="sec">O que dá para fazer</h2>' +
+        '<div class="card"><p class="sec-note" style="margin:0">Assim que você disser quanto tem de cada produto aí em cima, esta lista mostra quantos lotes de cada receita saem com o que há em casa — e o que falta comprar para as que não fecham.</p></div></section>';
+    }
+    var s = '<section class="block"><h2 class="sec">O que dá para fazer</h2>' +
+      '<p class="sec-note">Com o que tem em casa agora, quantas vezes cada receita sai inteira.</p><div class="card">';
+    var houve = false;
+    state.receitas.forEach(function(r){
+      var p = podeFazer(r);
+      if (!p) return;
+      houve = true;
+      s += '<div class="faz"><span class="nm">' + esc(r.nome || "Receita sem nome") + '</span>';
+      if (p.vezes >= 1){
+        s += '<span class="qt" style="color:var(--good)">dá para ' + p.vezes + (p.vezes === 1 ? " lote" : " lotes") + '</span>';
+      } else {
+        s += '<span class="qt" style="color:var(--bad)">falta produto</span>';
+        s += '<span class="falta">precisa comprar: ' + p.falta.map(function(f){
+          return qtdTexto(f.quanto, baseDe(f.ins)) + " de " + esc(f.ins.nome);
+        }).join(" · ") + '</span>';
+      }
+      s += '</div>';
+    });
+    if (!houve) s += '<p style="margin:2px 0; color:var(--ink-3); font-size:14px">Nenhuma receita tem ingredientes lançados ainda.</p>';
+    return s + '</div></section>';
+  }
+}
+
+
+
+/* ============ kits ============ */
+function kitAtual(){
+  var lista = state.kits || [];
+  for (var i=0;i<lista.length;i++) if (lista[i].id === editId) return lista[i];
+  return null;
+}
+function formatoDoKit(it){
+  for (var i=0;i<state.receitas.length;i++){
+    var r = state.receitas[i];
+    if (r.id !== it.receitaId) continue;
+    var k = calcular(r), achou = null;
+    k.formatos.forEach(function(c){ if (c.ref.id === it.formatoId) achou = c; });
+    if (achou) return { receita:r, c:achou };
+  }
+  return null;
+}
+function calcularKit(kit){
+  var o = { itens:0, trabalho:0, custo:0, pecas:0, linhas:[] };
+  (kit.itens || []).forEach(function(it){
+    var q = num(it.qtd);
+    var l = { qtd:q, ok:false, tipo:it.tipo, nome:"", det:"", unit:0, total:0, un:"un" };
+    if (it.tipo === "insumo"){
+      var ins = insumo(it.insumoId);
+      if (ins){
+        l.ok = true; l.nome = ins.nome || "Sem nome"; l.unit = custoBase(ins); l.un = baseDe(ins);
+        l.det = moneyFine(l.unit) + " por " + l.un + " · da despensa";
+      } else l.det = it.insumoId ? "este produto foi apagado da despensa" : "escolha um item da despensa";
+    } else {
+      var f = formatoDoKit(it);
+      if (f){
+        l.ok = true;
+        l.nome = (f.c.nome || "Formato") + " · " + (f.receita.nome || "receita sem nome");
+        l.unit = f.c.custoUn;
+        l.det = (f.receita.nome || "receita sem nome") + " · " + money(l.unit) + " cada, já com massa, embalagem e trabalho";
+      } else l.det = it.receitaId ? "esta receita ou formato não existe mais" : "escolha o que vai no kit";
+    }
+    l.total = l.unit * q;
+    o.itens += l.total;
+    o.pecas += q;
+    o.linhas.push(l);
+  });
+  o.trabalho = num(kit.trabalhoValor);
+  o.custo = o.itens + o.trabalho;
+  o.sugerido = precificar(o.custo, kit);
+  o.praticado = num(kit.precoPraticado);
+  o.preco = o.praticado > 0 ? o.praticado : o.sugerido;
+  o.lucro = o.preco - o.custo;
+  o.margem = o.preco > 0 ? (o.lucro / o.preco) * 100 : 0;
+  return o;
+}
+function novoKit(){
+  return { id:uid(), nome:"", data:hoje(), itens:[], trabalhoValor:"",
+           precoModo:"multiplicador", precoValor:2, precoPraticado:"" };
+}
+function linhaConta(a, b){
+  return '<div class="line"><span class="k">' + a + '</span><span class="v">' + b + '</span></div>';
+}
+function opcoesFormatosKit(it){
+  var s = '<option value="">Escolha o que vai dentro…</option>';
+  state.receitas.forEach(function(r){
+    var k = calcular(r);
+    if (!k.formatos.length) return;
+    s += '<optgroup label="' + esc(r.nome || "Receita sem nome") + '">';
+    k.formatos.forEach(function(c){
+      var val = r.id + "|" + c.ref.id;
+      var sel = (it.receitaId === r.id && it.formatoId === c.ref.id) ? " selected" : "";
+      s += '<option value="' + val + '"' + sel + '>' + esc(c.nome || "Formato") + ' — ' + money(c.custoUn) + ' cada</option>';
+    });
+    s += '</optgroup>';
+  });
+  return s;
+}
+function opcoesDespensaKit(it){
+  var s = '<option value="">Escolha da despensa…</option>';
+  [["embalagem", "Embalagem e rótulo"], ["ingrediente", "Ingredientes"]].forEach(function(par){
+    var lista = state.insumos.filter(function(i){ return (i.tipo || "ingrediente") === par[0]; });
+    if (!lista.length) return;
+    lista = lista.slice().sort(function(a, b){ return String(a.nome||"").localeCompare(String(b.nome||""), "pt-BR"); });
+    s += '<optgroup label="' + par[1] + '">';
+    lista.forEach(function(i){
+      s += '<option value="' + i.id + '"' + (it.insumoId === i.id ? " selected" : "") + '>' + esc(i.nome || "Sem nome") + '</option>';
+    });
+    s += '</optgroup>';
+  });
+  return s;
+}
+
+/* ============ tela: kits ============ */
+function telaKits(){
+  var h = '<section class="block"><h2 class="sec">Kits</h2>' +
+    '<p class="sec-note">Junte sabonetes, escalda-pés e as embalagens do conjunto. Cada peça entra com o custo que ela já tem nas Receitas e na Despensa, e o app fecha o valor do kit.</p>' +
+    '<button class="btn primary" data-act="kit-novo">+ Novo kit</button></section>';
+
+  var lista = state.kits || [];
+  if (!lista.length){
+    return h + '<section class="block"><div class="card empty"><h3>Nenhum kit ainda</h3>' +
+      '<p>Um kit é um conjunto pronto para vender: dois sabonetes, um escalda-pés, o papel kraft e a sacolinha, por exemplo. Monte aqui e o preço sai calculado com tudo dentro.</p></div></section>';
+  }
+
+  h += '<section class="block"><div class="stack-sm">';
+  lista.forEach(function(kit){
+    var c = calcularKit(kit);
+    var n = (kit.itens || []).length;
+    h += '<button class="recipe" data-act="kit-abrir" data-id="' + kit.id + '">' +
+      '<span><span class="nm">' + esc(kit.nome || "Kit sem nome") + '</span><br>' +
+      '<span class="mt">' + n + (n === 1 ? " item" : " itens") + ' · ' + dec(c.pecas, 0) +
+        (c.pecas === 1 ? " peça" : " peças") + '<br>custa ' + money(c.custo) + '</span></span>' +
+      '<span class="pv"><span class="a">' + money(c.preco) + '</span><br>' +
+      '<span class="b">' + (c.custo > 0 ? "lucro " + money(c.lucro) : "preço do kit") + '</span></span>' +
+      '</button>';
+  });
+  return h + '</div></section>';
+}
+
+function telaKitEditor(){
+  var kit = kitAtual();
+  if (!kit) return '<section class="block"><div class="card empty"><h3>Kit não encontrado</h3></div></section>';
+  var c = calcularKit(kit);
+
+  var h = '<button class="backlink" data-act="kit-voltar">← Todos os kits</button>';
+
+  h += '<section class="block"><h2 class="sec">Nome do kit</h2><div class="card">' +
+    '<div><label for="k-nome">Como você chama este conjunto</label>' +
+    '<input id="k-nome" type="text" data-kit="nome" value="' + esc(kit.nome || "") +
+    '" placeholder="Kit Relaxar"></div></div></section>';
+
+  h += '<section class="block"><h2 class="sec">O que vai dentro</h2>' +
+    '<p class="sec-note">Os sabonetes e o escalda-pés entram com o custo cheio que já têm na receita — massa, embalagem individual e seu trabalho. As embalagens do conjunto, como papel kraft e sacolinha, vêm da Despensa.</p>' +
+    '<div class="card">';
+
+  var itens = kit.itens || [];
+  if (!itens.length){
+    h += '<p style="margin:2px 0 4px; color:var(--ink-3); font-size:14px">Nada dentro ainda. Use os botões abaixo.</p>';
+  }
+  itens.forEach(function(it, i){
+    var l = c.linhas[i];
+    h += '<div class="item">' +
+      '<select data-ki="' + i + '" data-k="ref" aria-label="Item ' + (i + 1) + ' do kit">' +
+        (it.tipo === "insumo" ? opcoesDespensaKit(it) : opcoesFormatosKit(it)) + '</select>' +
+      '<div class="qtd-wrap"><input class="num" inputmode="decimal" type="text" data-ki="' + i +
+        '" data-k="qtd" value="' + esc(br(it.qtd)) + '" placeholder="1" aria-label="Quantidade">' +
+        '<span class="un">' + esc(l.un) + '</span></div>' +
+      '<button class="x" data-act="kit-rm" data-idx="' + i + '" aria-label="Tirar do kit">&times;</button>' +
+      '<div class="sub">' + esc(l.det) + (l.ok ? ' · <b>' + money(l.total) + '</b> no kit' : '') + '</div>' +
+      '</div>';
+  });
+
+  h += '<div class="kit-add">' +
+    '<button class="btn ghost" data-act="kit-add-formato">+ Sabonete ou escalda-pés</button>' +
+    '<button class="btn ghost" data-act="kit-add-insumo">+ Embalagem do kit</button>' +
+    '</div></div></section>';
+
+  h += '<section class="block"><h2 class="sec">Seu trabalho para montar</h2>' +
+    '<p class="sec-note">O tempo de montar, embrulhar e amarrar o conjunto. Pode deixar em branco se já estiver contado dentro das receitas.</p>' +
+    '<div class="card"><div><label for="k-trab">Valor por kit montado</label>' +
+    '<input id="k-trab" class="num" inputmode="decimal" type="text" data-kit="trabalhoValor" value="' +
+    esc(br(kit.trabalhoValor)) + '" placeholder="0,00"></div></div></section>';
+
+  var markup = kit.precoModo === "markup";
+  var pv = num(kit.precoValor);
+  var exemplo = markup ? 10 * (1 + pv / 100) : 10 * pv;
+  h += '<section class="block"><h2 class="sec">Quanto eu quero ganhar</h2>' +
+    '<p class="sec-note">A mesma regra das receitas, aplicada ao custo fechado do kit.</p>' +
+    '<div class="card stack">' +
+    '<div class="seg">' +
+      '<button data-seg-kit="precoModo" data-val="markup" aria-pressed="' + markup + '">% sobre o custo</button>' +
+      '<button data-seg-kit="precoModo" data-val="multiplicador" aria-pressed="' + (!markup) + '">multiplicar o custo</button>' +
+    '</div>' +
+    '<div><label for="k-pv">' + (markup ? "Ganhar quanto % sobre o custo" : "Multiplicar o custo por") + '</label>' +
+      '<input id="k-pv" class="num" inputmode="decimal" type="text" data-kit="precoValor" value="' +
+      esc(br(kit.precoValor)) + '" placeholder="' + (markup ? "50" : "2") + '"></div>' +
+    '<p class="pv-exemplo">Um kit que custa <b>R$ 10,00</b> sai por <b>' + money(exemplo) + '</b>.</p>' +
+    '<div><label for="k-preco">Preço que você vai cobrar</label>' +
+      '<input id="k-preco" class="num" inputmode="decimal" type="text" data-kit="precoPraticado" value="' +
+      esc(br(kit.precoPraticado)) + '" placeholder="' + (c.sugerido > 0 ? dec2(c.sugerido) : "0,00") + '">' +
+      '<p class="sec-note" style="margin:6px 0 0">Em branco, vale o preço sugerido pela regra acima' +
+      (c.praticado > 0 ? ' (' + money(c.sugerido) + ')' : '') + '.</p></div>' +
+    '</div></section>';
+
+  h += '<section class="block"><h2 class="sec">A conta do kit</h2><div class="card"><div class="lines">';
+  c.linhas.forEach(function(l){
+    if (!l.ok) return;
+    h += linhaConta(esc(dec(l.qtd, 2) + " " + l.un + " · " + l.nome), money(l.total));
+  });
+  h += linhaConta("<b>Soma do que vai dentro</b>", "<b>" + money(c.itens) + "</b>") +
+    linhaConta("Seu trabalho para montar", money(c.trabalho)) +
+    '<div class="line total"><span class="k">Custo do kit</span><span class="v">' + money(c.custo) + '</span></div>' +
+    linhaConta("Preço de venda", money(c.preco)) +
+    linhaConta("Lucro por kit", money(c.lucro)) +
+    linhaConta("Quanto do preço fica com você", dec(c.margem, 0) + "%") +
+    '</div></div></section>';
+
+  h += '<section class="block">' +
+    '<button class="btn primary grande" data-act="kit-salvar">Salvar kit</button>' +
+    '<p class="sec-note" style="margin:10px 0 0; text-align:center">Tudo já vai sendo guardado enquanto você digita. Este botão só fecha o kit e volta para a lista.</p>' +
+    '</section>';
+
+  h += '<section class="block"><div class="row-actions">' +
+    '<button class="btn" data-act="kit-duplicar" data-id="' + kit.id + '">Duplicar kit</button>' +
+    (confirmando === "kit:" + kit.id
+      ? '<button class="btn" data-act="kit-excluir" data-id="' + kit.id + '" style="color:var(--bad); border-color:var(--bad)">Confirmar exclusão</button><button class="btn" data-act="cancelar">Cancelar</button>'
+      : '<button class="btn" data-act="kit-perguntar" data-id="' + kit.id + '">Excluir kit</button>') +
+    '</div></section>';
+
+  return h;
+}
+
+/* ============ tela: backup ============ */
+function telaBackup(){
+  var quando = state.updatedAt ? new Date(state.updatedAt).toLocaleString("pt-BR") : "ainda não";
+
+  var h = '<section class="block"><h2 class="sec">Segurança dos dados</h2>' +
+    '<p class="sec-note">Suas receitas ficam guardadas neste navegador. Isso é rápido, mas some se você limpar os dados do navegador ou trocar de computador. A cópia automática resolve isso.</p></section>';
+
+  h += '<section class="block"><div class="card stack">';
+  if (!temArquivos){
+    h += '<div><span class="eyebrow">cópia automática</span>' +
+      '<p class="sec-note" style="margin:6px 0 0">Este navegador não oferece a cópia automática. Use o botão abaixo para baixar uma cópia de vez em quando, e guarde o arquivo numa pasta do Google Drive ou do OneDrive.</p></div>';
+  } else if (!arq){
+    h += '<div><span class="eyebrow">cópia automática</span>' +
+      '<div style="font-size:15px; margin-top:5px">Ainda não configurada</div>' +
+      '<p class="sec-note" style="margin:8px 0 0">Escolha um arquivo e, a partir daí, toda alteração é gravada nele sozinha. <b>Dica:</b> salve dentro da pasta do Google Drive ou do OneDrive do computador — assim a cópia sobe para a nuvem e você abre de qualquer máquina.</p></div>' +
+      '<div class="row-actions"><button class="btn primary" data-act="arq-escolher">Escolher arquivo de backup</button></div>';
+  } else if (!arqPermitido){
+    h += '<div><span class="eyebrow">cópia automática</span>' +
+      '<div style="font-size:15px; margin-top:5px">Pausada — ' + esc(arqNome) + '</div>' +
+      '<p class="sec-note" style="margin:8px 0 0">O navegador pede sua permissão de novo para gravar no arquivo. Um clique e ela volta a funcionar.</p></div>' +
+      '<div class="row-actions"><button class="btn primary" data-act="arq-retomar">Retomar cópia automática</button>' +
+      '<button class="btn" data-act="arq-escolher">Escolher outro arquivo</button></div>';
+  } else {
+    h += '<div><span class="eyebrow">cópia automática</span>' +
+      '<div style="font-size:15px; margin-top:5px"><span class="pill good">ativa</span> ' + esc(arqNome) + '</div>' +
+      '<p class="sec-note" style="margin:8px 0 0">Toda alteração é gravada nesse arquivo automaticamente' +
+      (arqQuando ? ' — última cópia às ' + esc(arqQuando) : '') + '.</p></div>' +
+      '<div class="row-actions"><button class="btn" data-act="arq-escolher">Trocar de arquivo</button></div>';
+  }
+  h += '</div></section>';
+
+  h += '<section class="block"><h2 class="sec">Recuperar</h2>' +
+    '<p class="sec-note">Trocou de computador, ou o navegador foi limpo? Abra o arquivo de backup e tudo volta como estava.</p>' +
+    '<div class="card"><div class="row-actions">' +
+      (temArquivos
+        ? '<button class="btn primary" data-act="arq-abrir">Restaurar de um arquivo</button>'
+        : '<button class="btn primary" data-act="arq-input">Restaurar de um arquivo</button>') +
+      '<button class="btn" data-act="bk-baixar">Baixar uma cópia agora</button>' +
+    '</div>' +
+    '<input type="file" id="arq-input" accept=".json,application/json" style="display:none">' +
+    (recado ? '<div class="hint warn">' + esc(recado) + '</div>' : '') +
+    '<p class="sec-note" style="margin:12px 0 0">Restaurar substitui o que está aqui pelo conteúdo do arquivo.</p>' +
+    '</div></section>';
+
+  h += '<section class="block"><div class="card">' +
+    '<span class="eyebrow">situação</span>' +
+    '<div style="margin-top:6px; font-size:15px">' + state.insumos.length + ' produtos na despensa · ' + state.receitas.length + ' receitas</div>' +
+    '<div class="sec-note" style="margin-top:4px">último salvamento: ' + esc(quando) + '</div>' +
+    '</div></section>';
+
+  h += '<section class="block"><details><summary style="cursor:pointer; font-size:13.5px; color:var(--ink-2); font-weight:600">Ver os dados em texto</summary>' +
+    '<div class="card stack" style="margin-top:10px">' +
+      '<textarea id="bk" class="json" spellcheck="false">' + esc(JSON.stringify(state)) + '</textarea>' +
+      '<div class="row-actions">' +
+        '<button class="btn" data-act="bk-copiar">Copiar</button>' +
+        '<button class="btn" data-act="bk-restaurar">Restaurar deste texto</button>' +
+      '</div>' +
+    '</div></details></section>';
+  return h;
+}
+
+/* ============ aviso flutuante ============ */
+var toastEl = null, toastTimer = null;
+function toast(txt, aviso){
+  if (!toastEl){
+    toastEl = document.createElement("div");
+    toastEl.className = "toast";
+    document.body.appendChild(toastEl);
+  }
+  toastEl.textContent = txt;
+  toastEl.className = "toast" + (aviso ? " aviso" : "");
+  void toastEl.offsetWidth;
+  toastEl.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(function(){ toastEl.classList.remove("on"); }, aviso ? 3200 : 2400);
+}
+
+/* ============ eventos ============ */
+function novoFormato(nome){
+  return { id:uid(), nome:nome || "", peso:"", qtd:"", embalagem:[], precoPraticado:"" };
+}
+
+document.addEventListener("click", function(ev){
+  var nav = ev.target.closest("nav button[data-nav]");
+  if (nav){ formAberto = null; ir(nav.dataset.nav); return; }
+
+  var selRec = ev.target.closest("[data-esc-receita]");
+  if (selRec) return;   // tratado no change
+
+  var segE = ev.target.closest("[data-seg-esc]");
+  if (segE){ if (escala){ escala.modo = segE.dataset.segEsc; render(); } return; }
+  var segT = ev.target.closest("[data-seg-trab]");
+  if (segT){ if (escala){ escala.trabalho = segT.dataset.segTrab; render(); } return; }
+
+  var segK = ev.target.closest("[data-seg-kit]");
+  if (segK){
+    var kSeg = kitAtual();
+    if (kSeg){ kSeg[segK.dataset.segKit] = segK.dataset.val; agendarSave(); render(); }
+    return;
+  }
+
+  var seg = ev.target.closest("[data-seg]");
+  if (seg){
+    var r0 = receita();
+    if (r0){ r0[seg.dataset.seg] = seg.dataset.val; agendarSave(); render(); }
+    return;
+  }
+
+  var b = ev.target.closest("[data-act]");
+  if (!b) return;
+  var act = b.dataset.act;
+  var r = receita();
+
+  if (act === "tema"){ alternaTema(); return; }
+  if (act === "marca"){ repeteMarca(); return; }
+
+  if (act === "cancelar"){ confirmando = null; formAberto = null; render(); return; }
+  if (act === "voltar"){ formAberto = null; ir("receitas"); return; }
+
+  if (act === "nova-receita"){
+    var nova = { id:uid(), nome:"", colecao:"", data:hoje(), codigo:"", itens:[], formatos:[novoFormato("")],
+      trabalhoValor:"", trabalhoModo:"lote", precoModo:"multiplicador", precoValor:2 };
+    nova.codigo = codigoSugerido(nova);
+    state.receitas.unshift(nova); agendarSave(); ir("editor", nova.id);
+    setTimeout(function(){ var e = document.getElementById("r-nome"); if (e) e.focus(); }, 40);
+    return;
+  }
+  if (act === "abrir"){ ir("editor", b.dataset.id); return; }
+
+  if (act === "kit-novo"){
+    if (!Array.isArray(state.kits)) state.kits = [];
+    var nk = novoKit();
+    state.kits.unshift(nk); agendarSave(); ir("kit", nk.id);
+    setTimeout(function(){ var e = document.getElementById("k-nome"); if (e) e.focus(); }, 40);
+    return;
+  }
+  if (act === "kit-abrir"){ ir("kit", b.dataset.id); return; }
+  if (act === "kit-voltar" || act === "kit-salvar"){ ir("kits"); return; }
+  if (act === "kit-add-formato"){
+    var ka = kitAtual();
+    if (ka){ ka.itens.push({ tipo:"formato", receitaId:"", formatoId:"", qtd:"1" }); agendarSave(); render(); }
+    return;
+  }
+  if (act === "kit-add-insumo"){
+    var kb = kitAtual();
+    if (kb){ kb.itens.push({ tipo:"insumo", insumoId:"", qtd:"1" }); agendarSave(); render(); }
+    return;
+  }
+  if (act === "kit-rm"){
+    var kc = kitAtual();
+    if (kc){ kc.itens.splice(parseInt(b.dataset.idx, 10), 1); agendarSave(); render(); }
+    return;
+  }
+  if (act === "kit-duplicar"){
+    var kd = kitAtual(); if (!kd) return;
+    var cop2 = JSON.parse(JSON.stringify(kd));
+    cop2.id = uid(); cop2.nome = (kd.nome || "Kit") + " (cópia)"; cop2.data = hoje();
+    state.kits.unshift(cop2); agendarSave(); ir("kit", cop2.id); return;
+  }
+  if (act === "kit-perguntar"){ confirmando = "kit:" + b.dataset.id; render(); return; }
+  if (act === "kit-excluir"){
+    var idk = b.dataset.id;
+    state.kits = (state.kits || []).filter(function(x){ return x.id !== idk; });
+    confirmando = null; agendarSave(); ir("kits");
+    toast("Kit excluído"); return;
+  }
+  if (act === "duplicar"){
+    if (!r) return;
+    var cop = JSON.parse(JSON.stringify(r));
+    cop.id = uid(); cop.nome = (r.nome || "Receita") + " (cópia)";
+    cop.produzida = false; cop.consumido = {};   // a cópia é uma nova fornada
+    cop.data = hoje(); cop.codigo = codigoSugerido(cop);
+    (cop.formatos || []).forEach(function(f){ f.id = uid(); });
+    state.receitas.unshift(cop); agendarSave(); ir("editor", cop.id); return;
+  }
+  if (act === "nb-add"){
+    if (!novaBase) return;
+    var pri = state.insumos.filter(function(i){ return (i.tipo || "ingrediente") === "ingrediente"; })[0];
+    if (pri) novaBase.itens.push({ insumoId: pri.id, qtd: "" });
+    render(); return;
+  }
+  if (act === "nb-remover"){
+    if (!novaBase) return;
+    novaBase.itens.splice(parseInt(b.dataset.idx, 10), 1);
+    render(); return;
+  }
+  if (act === "nb-abrir"){ abreNovaBase(); escalaRec = null; escala = null; render(); return; }
+  if (act === "nb-cancelar"){ novaBase = null; render(); return; }
+  if (act === "nb-criar"){
+    if (!novaBase) return;
+    var nomeBase = (novaBase.nome || "").trim();
+    if (!nomeBase){
+      var cn = document.getElementById("nb-nome");
+      if (cn) cn.focus();
+      toast("Dê um nome para a receita base.", true);
+      return;
+    }
+    var validos = novaBase.itens.filter(function(it){ return it.insumoId && num(it.qtd) > 0; });
+    if (!validos.length){ toast("Lance pelo menos um ingrediente com quantidade.", true); return; }
+
+    var base = { id:uid(), nome:nomeBase, colecao:(novaBase.colecao || "").trim(),
+      data:hoje(), codigo:"",
+      itens: validos.map(function(it){
+        var ii = insumo(it.insumoId);
+        return { insumoId: it.insumoId, qtd: it.qtd, lote: ii ? (ii.lote || "") : "" };
+      }),
+      formatos: [{ id:uid(), nome:"Padrão", peso: novaBase.peso, qtd: novaBase.qtd,
+                   embalagem: [], precoPraticado: "" }],
+      trabalhoValor:"", trabalhoModo:"lote", precoModo:"multiplicador", precoValor:2,
+      produzida:false, consumido:{} };
+    base.codigo = codigoSugerido(base);
+    state.receitas.unshift(base);
+    novaBase = null;
+    escalaRec = base.id;
+    abreEscala(base);
+    agendarSave(); render();
+    toast("“" + nomeBase + "” criada como padrão");
+    return;
+  }
+
+  if (act === "esc-criar"){
+    var padrao = null;
+    state.receitas.forEach(function(x){ if (x.id === escalaRec) padrao = x; });
+    if (!padrao) return;
+    var e = fatorDaEscala(padrao);
+    if (!(e.fator > 0)) return;
+    var nova = receitaEscalada(padrao, e.fator);
+    state.receitas.unshift(nova);
+    escala = null;
+    agendarSave();
+    ir("editor", nova.id);
+    toast("Produção de " + dec(e.fator * 100, 0) + "% criada");
+    return;
+  }
+
+  if (act === "est-mais"){
+    var im = insumo(b.dataset.id);
+    if (im){ im.estoque = num(im.estoque) + porEmbalagem(im); agendarSave(); render(); }
+    return;
+  }
+  if (act === "rec-produzida"){
+    if (!r) return;
+    r.produzida = !!b.checked;
+    sincronizaEstoque(r);
+    agendarSave(); render();
+    toast(r.produzida ? "Descontado do estoque" : "Devolvido ao estoque");
+    return;
+  }
+
+  if (act === "rec-salvar"){
+    if (!r) return;
+    var nome = (r.nome || "").trim();
+    if (!nome){
+      window.scrollTo({top:0, behavior:"smooth"});
+      var campo = document.getElementById("r-nome");
+      if (campo) campo.focus();
+      toast("Dê um nome para a receita antes de salvar.", true);
+      return;
+    }
+    clearTimeout(saveTimer);          // não espera o intervalo: grava agora
+    state.updatedAt = new Date().toISOString();
+    try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){}
+    gravar();
+    ir("receitas");
+    toast("\u201C" + nome + "\u201D salva");
+    return;
+  }
+  if (act === "rec-perguntar"){ confirmando = "rec:" + b.dataset.id; render(); return; }
+  if (act === "rec-excluir"){
+    var aExcluir = null;
+    state.receitas.forEach(function(x){ if (x.id === b.dataset.id) aExcluir = x; });
+    if (aExcluir){ aExcluir.produzida = false; sincronizaEstoque(aExcluir); }   // devolve o que saiu
+    state.receitas = state.receitas.filter(function(x){ return x.id !== b.dataset.id; });
+    agendarSave(); ir("receitas"); return;
+  }
+
+  if (act === "item-add"){
+    if (!r) return;
+    var pri = state.insumos.filter(function(i){ return (i.tipo || "ingrediente") === "ingrediente"; })[0];
+    if (!pri) return;
+    r.itens = r.itens || [];
+    r.itens.push({ insumoId:pri.id, qtd:"", lote: pri.lote || "" });
+    agendarSave(); render(); return;
+  }
+  if (act === "item-remover"){
+    if (!r) return;
+    r.itens.splice(parseInt(b.dataset.idx, 10), 1);
+    agendarSave(); render(); return;
+  }
+
+  if (act === "fmt-add"){
+    if (!r) return;
+    r.formatos = r.formatos || [];
+    r.formatos.push(novoFormato(""));
+    agendarSave(); render();
+    setTimeout(function(){
+      var campos = document.querySelectorAll('[data-k="nome"][data-f]');
+      var ultimo = campos[campos.length - 1];
+      if (ultimo){ ultimo.focus(); ultimo.scrollIntoView({block:"center"}); }
+    }, 40);
+    return;
+  }
+  if (act === "fmt-remover"){
+    if (!r) return;
+    r.formatos.splice(parseInt(b.dataset.idx, 10), 1);
+    agendarSave(); render(); return;
+  }
+  if (act === "emb-add"){
+    if (!r) return;
+    var f = r.formatos[parseInt(b.dataset.fmt, 10)]; if (!f) return;
+    var pe = state.insumos.filter(function(i){ return i.tipo === "embalagem"; })[0];
+    if (!pe) return;
+    f.embalagem = f.embalagem || [];
+    f.embalagem.push({ insumoId:pe.id, qtd:1, lote: pe.lote || "" });
+    agendarSave(); render(); return;
+  }
+  if (act === "emb-remover"){
+    if (!r) return;
+    var f2 = r.formatos[parseInt(b.dataset.fmt, 10)]; if (!f2) return;
+    f2.embalagem.splice(parseInt(b.dataset.idx, 10), 1);
+    agendarSave(); render(); return;
+  }
+
+  if (act === "usar-sugerido"){
+    if (!r) return;
+    var fs = r.formatos[parseInt(b.dataset.idx, 10)]; if (!fs) return;
+    fs.precoPraticado = "";
+    var campo = document.querySelector('[data-p="' + b.dataset.idx + '"]');
+    if (campo) campo.value = "";
+    agendarSave(); atualizarFormatos(); return;
+  }
+
+  if (act === "ins-novo"){ formAberto = "novo:" + b.dataset.tipo; confirmando = null; render(); return; }
+  if (act === "ins-editar"){ formAberto = b.dataset.id; confirmando = null; render(); return; }
+  if (act === "ins-perguntar"){ confirmando = "ins:" + b.dataset.id; render(); return; }
+  if (act === "ins-excluir"){
+    var id = b.dataset.id;
+    state.insumos = state.insumos.filter(function(x){ return x.id !== id; });
+    state.receitas.forEach(function(rr){
+      rr.itens = (rr.itens || []).filter(function(i){ return i.insumoId !== id; });
+      (rr.formatos || []).forEach(function(f3){
+        f3.embalagem = (f3.embalagem || []).filter(function(i){ return i.insumoId !== id; });
+      });
+    });
+    confirmando = null; agendarSave(); render(); return;
+  }
+  if (act === "ins-salvar"){
+    var nome = (document.getElementById("f-nome").value || "").trim();
+    if (!nome){ document.getElementById("f-nome").focus(); return; }
+    var qtd = num(document.getElementById("f-qtd").value);
+    var unidade = document.getElementById("f-un").value;
+    var preco = num(document.getElementById("f-preco").value);
+    var campoLote = document.getElementById("f-lote");
+    var lote = campoLote ? (campoLote.value || "").trim() : "";
+    var alvo = b.dataset.id ? insumo(b.dataset.id) : null;
+    if (alvo){ alvo.nome = nome; alvo.qtd = qtd; alvo.unidade = unidade; alvo.preco = preco; alvo.lote = lote; }
+    else state.insumos.push({ id:uid(), tipo:b.dataset.tipo, nome:nome, qtd:qtd, unidade:unidade, preco:preco, lote:lote });
+    formAberto = null; agendarSave(); render(); return;
+  }
+
+  if (act === "arq-escolher"){ escolherArquivo(); return; }
+  if (act === "arq-abrir"){ abrirArquivo(); return; }
+  if (act === "arq-retomar"){
+    permissao(arq, true).then(function(ok){ arqPermitido = ok; return escreveArquivo(); }).then(function(){ render(); });
+    return;
+  }
+  if (act === "arq-input"){ var ii = document.getElementById("arq-input"); if (ii) ii.click(); return; }
+  if (act === "bk-baixar"){ baixarCopia(); return; }
+
+  if (act === "bk-copiar"){
+    var ta = document.getElementById("bk");
+    ta.select(); ta.setSelectionRange(0, 999999);
+    try { document.execCommand("copy"); } catch(e){}
+    if (navigator.clipboard) { try { navigator.clipboard.writeText(ta.value); } catch(e){} }
+    b.textContent = "Copiado";
+    setTimeout(function(){ b.textContent = "Copiar"; }, 1600);
+    return;
+  }
+  if (act === "bk-restaurar"){
+    try {
+      var novo = JSON.parse(document.getElementById("bk").value);
+      if (!novo || !Array.isArray(novo.insumos) || !Array.isArray(novo.receitas)) throw new Error("formato");
+      state = migrar(novo); agendarSave(); ir("receitas");
+    } catch(e){
+      b.textContent = "Texto inválido";
+      setTimeout(function(){ b.textContent = "Restaurar a partir deste texto"; }, 2200);
+    }
+    return;
+  }
+});
+
+document.addEventListener("change", function(ev){
+  if (ev.target && ev.target.hasAttribute && ev.target.hasAttribute("data-esc-receita")){
+    if (ev.target.value === "__nova__"){ abreNovaBase(); escalaRec = null; escala = null; render(); return; }
+    novaBase = null;
+    escalaRec = ev.target.value || null;
+    escala = null;
+    if (escalaRec){
+      var alvo = null;
+      state.receitas.forEach(function(x){ if (x.id === escalaRec) alvo = x; });
+      if (alvo) abreEscala(alvo);
+    }
+    render();
+    return;
+  }
+  if (ev.target && ev.target.dataset && ev.target.dataset.ordem){
+    if (!state.ordem) state.ordem = {};
+    state.ordem[ev.target.dataset.ordem] = ev.target.value;
+    agendarSave(); render();
+    return;
+  }
+  if (ev.target && ev.target.id === "arq-input" && ev.target.files && ev.target.files[0]){
+    var leitor = new FileReader();
+    leitor.onload = function(){
+      try { aplicaDados(JSON.parse(leitor.result)); ir("receitas"); }
+      catch(e){ avisa("Não consegui ler esse arquivo."); }
+    };
+    leitor.readAsText(ev.target.files[0]);
+  }
+});
+
+var timerCampo = null;
+function renderDepois(seletor){          // re-render sem atropelar quem está digitando
+  clearTimeout(timerCampo);
+  timerCampo = setTimeout(function(){
+    render();
+    var c = document.querySelector(seletor);
+    if (c){ c.focus(); try { c.setSelectionRange(c.value.length, c.value.length); } catch(e){} }
+  }, 500);
+}
+
+document.addEventListener("input", function(ev){
+  var t = ev.target, r = receita();
+  if (t.dataset && t.dataset.nb){
+    if (novaBase){ novaBase[t.dataset.nb] = t.value; }
+    return;
+  }
+  if (t.dataset && t.dataset.nbi != null && t.dataset.nbi !== ""){
+    if (novaBase){
+      var itb = novaBase.itens[parseInt(t.dataset.nbi, 10)];
+      if (itb){
+        itb[t.dataset.k] = t.value;
+        if (t.dataset.k === "insumoId") render();
+      }
+    }
+    return;
+  }
+  if (t.dataset && t.dataset.ki != null && t.dataset.ki !== ""){
+    var kEd = kitAtual(); if (!kEd) return;
+    var itK = (kEd.itens || [])[parseInt(t.dataset.ki, 10)]; if (!itK) return;
+    if (t.dataset.k === "ref"){
+      if (itK.tipo === "insumo") itK.insumoId = t.value;
+      else {
+        var par = String(t.value).split("|");
+        itK.receitaId = par[0] || ""; itK.formatoId = par[1] || "";
+      }
+      agendarSave(); render();
+    } else {
+      itK.qtd = t.value;
+      agendarSave();
+      renderDepois('[data-ki="' + t.dataset.ki + '"][data-k="qtd"]');
+    }
+    return;
+  }
+  if (t.dataset && t.dataset.kit){
+    var kF = kitAtual(); if (!kF) return;
+    kF[t.dataset.kit] = t.value;
+    agendarSave();
+    if (t.dataset.kit === "nome") return;
+    renderDepois('[data-kit="' + t.dataset.kit + '"]');
+    return;
+  }
+  if (t.hasAttribute && t.hasAttribute("data-busca")){
+    busca = t.value;
+    renderDepois("#campo-busca");
+    return;
+  }
+  if (t.dataset && t.dataset.sobra){                  // sobra digitada no painel
+    if (escala){ escala.sobras[t.dataset.sobra] = t.value; renderDepois('[data-sobra="' + t.dataset.sobra + '"]'); }
+    return;
+  }
+  if (t.dataset && t.dataset.esc){                    // porcentagem ou peso alvo
+    if (escala){ escala[t.dataset.esc] = t.value; renderDepois('[data-esc="' + t.dataset.esc + '"]'); }
+    return;
+  }
+  if (t.dataset && t.dataset.est){                    // saldo ajustado à mão
+    var ie = insumo(t.dataset.est);
+    if (ie){
+      ie.estoque = num(t.value);
+      agendarSave();
+      renderDepois('[data-est="' + t.dataset.est + '"]');
+    }
+    return;
+  }
+  if (!r) return;
+
+  if (t.dataset.r){                                   // campos da receita
+    r[t.dataset.r] = t.value;
+    agendarSave(); atualizarFormatos();
+    return;
+  }
+  if (t.dataset.f != null && t.dataset.f !== ""){      // campos do formato
+    var f = r.formatos[parseInt(t.dataset.f, 10)]; if (!f) return;
+    f[t.dataset.k] = t.value;
+    agendarSave();
+    if (t.dataset.k === "nome"){
+      var eyebrow = t.closest(".fmt").querySelector(".fmt-emb .eyebrow");
+      if (eyebrow) eyebrow.textContent = "Embalagem de cada " + (t.value || "sabonete").toLowerCase();
+    }
+    atualizarFormatos();
+    return;
+  }
+  if (t.dataset.p != null && t.dataset.p !== ""){       // preço de um formato
+    var fp = r.formatos[parseInt(t.dataset.p, 10)]; if (!fp) return;
+    fp.precoPraticado = t.value;
+    agendarSave(); atualizarFormatos();
+    return;
+  }
+  if (t.dataset.item){                                 // ingrediente da massa
+    var it = (r.itens || [])[parseInt(t.dataset.idx, 10)]; if (!it) return;
+    it[t.dataset.k] = t.value;
+    if (t.dataset.k === "insumoId"){ var ni = insumo(t.value); it.lote = ni ? (ni.lote || "") : ""; }
+    agendarSave();
+    if (t.dataset.k === "insumoId") render(); else atualizarIngredientes();
+    return;
+  }
+  if (t.dataset.emb != null && t.dataset.emb !== ""){   // embalagem de um formato
+    var f2 = r.formatos[parseInt(t.dataset.emb, 10)]; if (!f2) return;
+    var e2 = (f2.embalagem || [])[parseInt(t.dataset.idx, 10)]; if (!e2) return;
+    e2[t.dataset.k] = t.value;
+    if (t.dataset.k === "insumoId"){ var ne = insumo(t.value); e2.lote = ne ? (ne.lote || "") : ""; }
+    agendarSave();
+    if (t.dataset.k === "insumoId") render(); else atualizarFormatos();
+  }
+});
+
+/* ============ tema e marca ============ */
+var CHAVE_TEMA = "saboaria.tema";
+function aplicaTema(t){
+  var raiz = document.documentElement;
+  if (t === "dark" || t === "light") raiz.setAttribute("data-theme", t);
+  else raiz.removeAttribute("data-theme");
+  try { localStorage.setItem(CHAVE_TEMA, t); } catch(e){}
+}
+function escuroAgora(){
+  var t = document.documentElement.getAttribute("data-theme");
+  if (t === "dark") return true;
+  if (t === "light") return false;
+  return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+}
+function alternaTema(){
+  aplicaTema(escuroAgora() ? "light" : "dark");
+  toast(escuroAgora() ? "Modo noturno" : "Modo claro");
+}
+function iniciaTema(){
+  var t = null;
+  try { t = localStorage.getItem(CHAVE_TEMA); } catch(e){}
+  if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+}
+function repeteMarca(){
+  var svg = document.getElementById("marca");
+  if (!svg) return;
+  var pai = svg.parentNode, prox = svg.nextSibling;
+  pai.removeChild(svg); void svg.offsetWidth; pai.insertBefore(svg, prox);
+}
+
+/* ============ arranque ============ */
+function iniciar(){
+  iniciaTema();
+  try { if (navigator.storage && navigator.storage.persist) navigator.storage.persist(); } catch(e){}
+  var p = (window.claude && window.claude.use)
+    ? window.claude.use("artifact")["catch"](function(){ return null; })
+    : Promise.resolve(null);
+  p.then(function(a){ canPublish = !!a; return retomarArquivo(); })
+   ["catch"](function(){})
+   .then(function(){ return carregar(); })
+   ["catch"](function(){ return carregar(); })
+   .then(function(){ render(); })
+   ["catch"](function(){ render(); });
+}
+iniciar();
+})();
+</script>
